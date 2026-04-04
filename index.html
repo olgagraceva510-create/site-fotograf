@@ -6,7 +6,7 @@
   <title>Ольга Грачёва — фотограф, ретушёр, реставратор, ИИ-креатор</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
 </head>
@@ -16,11 +16,16 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="#главная">Ольга Грачёва</a>
-      <nav class="main-nav" aria-label="Основная навигация">
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Открыть меню">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+      <nav id="main-navigation" class="main-nav" aria-label="Основная навигация">
         <ul>
           <li><a href="#главная">Главная</a></li>
           <li><a href="#обо-мне">Обо мне</a></li>
           <li><a href="#портфолио">Портфолио</a></li>
+          <li><a href="#ии-портфолио">ИИ портфолио</a></li>
           <li><a href="#услуги">Услуги</a></li>
           <li><a href="#до-после">До / После</a></li>
           <li><a href="#контакты">Контакты</a></li>
@@ -32,30 +37,45 @@
   <main>
     <!-- Главный экран -->
     <section id="главная" class="hero">
-      <div class="container hero-container">
+      <div class="container">
         <div class="hero-content">
-          <h1>Ольга Грачёва</h1>
-          <p class="hero-tagline">Фотограф, ретушёр, реставратор фотографий, ИИ-креатор</p>
-          <div class="hero-actions">
-            <a class="button" href="#портфолио">Смотреть портфолио</a>
+          <div class="hero-text">
+            <h1 class="hero-name">
+              <span class="hero-name-line">Ольга</span>
+              <span class="hero-name-line">Грачёва</span>
+            </h1>
+            <p class="hero-kicker">Фотограф · Ретушёр · Реставратор · ИИ-креатор</p>
+            <div class="hero-actions">
+              <a class="button button--hero" href="#портфолио">Смотреть портфолио</a>
+              <a class="button button--hero-secondary" href="#контакты">Написать мне</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-visual-inner">
+              <picture>
+                <source media="(max-width: 768px)" srcset="assets/images/hero-mobile.jpg">
+                <img class="hero-image" src="assets/images/hero.jpg" alt="Ольга Грачёва — портрет для портфолио" width="720" height="900" loading="eager" fetchpriority="high">
+              </picture>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Обо мне -->
+    <!-- Обо мне — варианты: по умолчанию сбалансированный центр.
+         Добавьте к <section> класс about--magazine — заголовок и акцент слева (редакционный).
+         Добавьте about--soft — тёплый фон секции. Можно вместе: about about--magazine about--soft -->
     <section id="обо-мне" class="about">
-      <div class="container">
-        <h2>Обо мне</h2>
+      <div class="container about-inner">
+        <h2 class="about-heading">Обо мне</h2>
         <div class="about-content">
           <div class="about-text">
-            <p> Меня зовут Ольга Грачёва.</p>
-            <p>Я работаю на стыке фотографии, ретуши, реставрации и AI-креатива.</p>
+            <p class="about-lead">Меня зовут Ольга Грачёва.</p>
+            <p>Я работаю на стыке фотографии, ретуши, реставрации и ИИ-креатива.</p>
             <p>Помогаю сохранять воспоминания, восстанавливать старые фотографии и создавать выразительные визуальные образы.</p>
           </div>
           <figure class="about-photo">
-            <img src="assets/images/portrait.jpg" alt="Портрет Ольги Грачёвой">
-            <figcaption>Портрет</figcaption>
+            <img src="images/olga-camera.png" alt="Ольга Грачёва с фотоаппаратом" width="840" height="1050" loading="lazy">
           </figure>
         </div>
       </div>
@@ -67,23 +87,51 @@
         <h2>Портфолио</h2>
         <div class="portfolio-grid">
           <div class="portfolio-item">
-            <img src="assets/images/photo1.jpg" alt="Работа из портфолио, снимок 1">
+            <img src="assets/images/portfolio-01.png" alt="Студийный портрет: руки у лица, тёмный фон, украшения" loading="lazy">
           </div>
           <div class="portfolio-item">
-            <img src="assets/images/photo2.jpg" alt="Работа из портфолио, снимок 2">
+            <img src="assets/images/portfolio-02.png" alt="Студийный портрет в чёрной водолазке, мягкий свет" loading="lazy">
           </div>
           <div class="portfolio-item">
-            <img src="assets/images/photo3.jpg" alt="Работа из портфолио, снимок 3">
+            <img src="assets/images/portfolio-03.png" alt="Портрет на улице с букетом, кирпичное здание на фоне" loading="lazy">
           </div>
           <div class="portfolio-item">
-            <img src="assets/images/photo4.jpg" alt="Работа из портфолио, снимок 4">
+            <img src="assets/images/portfolio-04.png" alt="Городской портрет в белой рубашке и очках" loading="lazy">
           </div>
           <div class="portfolio-item">
-            <img src="assets/images/photo5.jpg" alt="Работа из портфолио, снимок 5">
+            <img src="assets/images/portfolio-05.png" alt="Портрет на стогах сена в белом платье" loading="lazy">
           </div>
           <div class="portfolio-item">
-            <img src="assets/images/photo6.jpg" alt="Работа из портфолио, снимок 6">
+            <img src="assets/images/portfolio-06.png" alt="Портрет на сене, небо и снопы на фоне" loading="lazy">
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ИИ портфолио -->
+    <section id="ии-портфолио" class="ai-portfolio" aria-labelledby="ai-portfolio-heading">
+      <div class="container">
+        <h2 id="ai-portfolio-heading">ИИ портфолио</h2>
+        <p class="ai-portfolio-intro">Работы, созданные с помощью нейросетей</p>
+        <div class="ai-portfolio-grid">
+          <figure class="ai-portfolio-item">
+            <img src="assets/images/ai-portfolio-01.png" alt="ИИ-портрет: чёрный пиджак и жемчужное ожерелье, драматичный свет" width="900" height="1200" loading="lazy" decoding="async">
+          </figure>
+          <figure class="ai-portfolio-item">
+            <img src="assets/images/ai-portfolio-02.png" alt="ИИ-портрет: новогодний образ с ёлкой и шарами на голове" width="900" height="1200" loading="lazy" decoding="async">
+          </figure>
+          <figure class="ai-portfolio-item">
+            <img src="assets/images/ai-portfolio-03.png" alt="ИИ-портрет: красный костюм и сердце на голубом фоне" width="900" height="1200" loading="lazy" decoding="async">
+          </figure>
+          <figure class="ai-portfolio-item">
+            <img src="assets/images/ai-portfolio-04.png" alt="ИИ-портрет: осколки стекла и нити, кинематографичный стиль" width="900" height="1200" loading="lazy" decoding="async">
+          </figure>
+          <figure class="ai-portfolio-item">
+            <img src="assets/images/ai-portfolio-05.png" alt="ИИ-портрет: кудри и драпировка из атласа, дым на фоне" width="900" height="1200" loading="lazy" decoding="async">
+          </figure>
+          <figure class="ai-portfolio-item">
+            <img src="assets/images/ai-portfolio-06.png" alt="ИИ-портрет: шахматная фигура, кожа и золотые акценты" width="900" height="1200" loading="lazy" decoding="async">
+          </figure>
         </div>
       </div>
     </section>
@@ -106,7 +154,7 @@
             <p>Восстановление повреждённых и выцветших снимков, устранение дефектов и пятен.</p>
           </article>
           <article class="service-card">
-            <h3>AI-креатив</h3>
+            <h3>ИИ-креатив</h3>
             <p>Идеи и визуалы с опорой на нейросетевые инструменты — от эскиза до финального кадра.</p>
           </article>
         </div>
@@ -120,14 +168,110 @@
         <div class="before-after-list">
           <article class="before-after-item">
             <h3>Ретушь портрета</h3>
-            <div class="before-after-placeholder" aria-hidden="true">
-              <!-- Место для сравнения «до» и «после» -->
+            <div
+              class="before-after-slider"
+              data-before-after-slider
+              style="--ba-pos: 50"
+              role="group"
+              aria-label="Сравнение портрета до и после ретуши"
+            >
+              <div class="before-after-slider__viewport">
+                <img
+                  class="before-after-slider__img before-after-slider__img--before"
+                  src="assets/images/retouch-portrait-before.png"
+                  alt="До: исходный портрет без ретуши"
+                  width="800"
+                  height="1000"
+                  loading="lazy"
+                  draggable="false"
+                >
+                <span class="before-after-slider__badge before-after-slider__badge--before">До</span>
+                <div class="before-after-slider__clip">
+                  <img
+                    class="before-after-slider__img before-after-slider__img--after"
+                    src="assets/images/retouch-portrait-after.png"
+                    alt="После: портрет после ретуши"
+                    width="800"
+                    height="1000"
+                    loading="lazy"
+                    draggable="false"
+                  >
+                </div>
+                <span class="before-after-slider__badge before-after-slider__badge--after">После</span>
+                <div class="before-after-slider__divider" aria-hidden="true">
+                  <span class="before-after-slider__line"></span>
+                  <span class="before-after-slider__handle"></span>
+                </div>
+                <label class="before-after-slider__range-wrap">
+                  <span class="visually-hidden">Позиция границы сравнения</span>
+                  <input
+                    type="range"
+                    class="before-after-slider__range"
+                    min="0"
+                    max="100"
+                    value="50"
+                    step="0.25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="50"
+                    aria-valuetext="50 процентов"
+                  >
+                </label>
+              </div>
             </div>
           </article>
           <article class="before-after-item">
             <h3>Реставрация старой фотографии</h3>
-            <div class="before-after-placeholder" aria-hidden="true">
-              <!-- Место для сравнения «до» и «после» -->
+            <div
+              class="before-after-slider"
+              data-before-after-slider
+              style="--ba-pos: 50"
+              role="group"
+              aria-label="Сравнение снимка до и после реставрации"
+            >
+              <div class="before-after-slider__viewport">
+                <img
+                  class="before-after-slider__img before-after-slider__img--before"
+                  src="assets/images/restoration-before.png"
+                  alt="До: повреждённая старая фотография"
+                  width="800"
+                  height="1200"
+                  loading="lazy"
+                  draggable="false"
+                >
+                <span class="before-after-slider__badge before-after-slider__badge--before">До</span>
+                <div class="before-after-slider__clip">
+                  <img
+                    class="before-after-slider__img before-after-slider__img--after"
+                    src="assets/images/restoration-after.png"
+                    alt="После: отреставрированный портрет"
+                    width="800"
+                    height="1200"
+                    loading="lazy"
+                    draggable="false"
+                  >
+                </div>
+                <span class="before-after-slider__badge before-after-slider__badge--after">После</span>
+                <div class="before-after-slider__divider" aria-hidden="true">
+                  <span class="before-after-slider__line"></span>
+                  <span class="before-after-slider__handle"></span>
+                </div>
+                <label class="before-after-slider__range-wrap">
+                  <span class="visually-hidden">Позиция границы сравнения</span>
+                  <input
+                    type="range"
+                    class="before-after-slider__range"
+                    min="0"
+                    max="100"
+                    value="50"
+                    step="0.25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="50"
+                    aria-valuetext="50 процентов"
+                  >
+                </label>
+              </div>
             </div>
           </article>
         </div>
@@ -139,13 +283,13 @@
       <div class="container">
         <h2>Контакты</h2>
         <ul class="contact-list">
-          <li class="contact-card"><a href="mailto:">Email</a></li>
-          <li class="contact-card"><a href="https://t.me/" target="_blank" rel="noopener noreferrer">Telegram</a></li>
-          <li class="contact-card"><a href="#">Max</a></li>
-          <li class="contact-card"><a href="https://vk.com/" target="_blank" rel="noopener noreferrer">ВКонтакте</a></li>
+          <li class="contact-card"><a href="mailto:olga.gracheva79@bk.ru">Email</a></li>
+          <li class="contact-card"><a href="https://t.me/olga_ai_photo" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+          <li class="contact-card"><a href="https://max.ru/u/f9LHodD0cOKWoLA9b7c5sxCrI7UZ_USxdxc-MWgxdlpcGjyO_dDzJAThFtc" target="_blank" rel="noopener noreferrer">Max</a></li>
+          <li class="contact-card"><a href="https://vk.com/profoto71" target="_blank" rel="noopener noreferrer">ВКонтакте</a></li>
         </ul>
         <p class="contact-action">
-          <a class="button" href="mailto:">Написать сообщение</a>
+          <a class="button" href="mailto:olga.gracheva79@bk.ru">Написать сообщение</a>
         </p>
       </div>
     </section>
@@ -155,7 +299,7 @@
   <footer class="site-footer">
     <div class="container">
       <p class="footer-name">Ольга Грачёва</p>
-      <p class="footer-tagline">Фотограф • Ретушёр • Реставратор • AI-креатор</p>
+      <p class="footer-tagline">Фотограф • Ретушёр • Реставратор • ИИ-креатор</p>
       <p class="footer-copy">© 2026 Все права защищены</p>
     </div>
   </footer>
