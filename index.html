@@ -2,21 +2,16 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Ольга Грачёва — фотограф, ретушёр, реставратор, ИИ-креатор</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
-  <script src="js/galaxy.js" defer></script>
 </head>
 <body>
-
-  <div class="bg-stack" aria-hidden="true">
-    <div id="galaxy-bg" class="galaxy-bg"></div>
-    <div class="bg-stack__veil"></div>
-  </div>
+  <div class="site-bg-parallax" aria-hidden="true"></div>
 
   <div class="site-top">
   <!-- Тонкая полоса объявления -->
@@ -38,6 +33,7 @@
         <ul>
           <li><a href="#главная">Главная</a></li>
           <li><a href="#обо-мне">Обо мне</a></li>
+          <li><a href="#отзывы">Отзывы</a></li>
           <li><a href="#портфолио">Портфолио</a></li>
           <li><a href="#ии-портфолио">ИИ портфолио</a></li>
           <li><a href="#услуги">Услуги</a></li>
@@ -51,44 +47,135 @@
   </div>
 
   <main>
-    <!-- Главный экран -->
+    <!-- Главный экран: типографика слева, портрет справа (на узком экране — колонка) -->
     <section id="главная" class="hero">
       <div class="container">
-        <div class="hero-content">
-          <div class="hero-text">
-            <h1 class="hero-name" lang="ru">
-              <span class="hero-name-line hero-name-line--first"><span class="initial">О</span>льга</span>
-              <span class="hero-name-line hero-name-line--surname">Грачёва</span>
-            </h1>
-            <p class="hero-kicker">
-              <span class="hero-kicker__mobile-grid">
-                <span class="hero-kicker__c1"><span class="hero-kicker__lead" aria-hidden="true">· </span>Фотограф </span><span class="hero-kicker__c2">· Ретушёр · Реставратор · </span><span class="hero-kicker__c3">ИИ-креатор</span>
-              </span>
-            </p>
-            <div class="hero-actions">
-              <a class="button button--hero" href="#портфолио">Смотреть портфолио</a>
-              <a class="button button--hero-secondary" href="#контакты">Написать мне</a>
+        <div class="hero-layout">
+          <figure class="hero-visual">
+            <img
+              class="hero-visual__img"
+              src="images/hero-portrait.png"
+              alt=""
+              width="571"
+              height="1024"
+              loading="eager"
+              decoding="async"
+            >
+          </figure>
+          <div class="hero-content">
+            <div class="hero-text">
+              <h1 class="hero-name" lang="ru">
+                <span class="hero-name-line hero-name-line--first hero-name-gradient-text"><span class="initial">О</span>льга</span>
+                <span class="hero-name-line hero-name-line--surname hero-name-gradient-text">Грачёва</span>
+              </h1>
+              <p class="hero-kicker">
+                <span class="hero-kicker__mobile-grid">
+                  <span class="hero-kicker__c1"><span class="hero-kicker__lead" aria-hidden="true">· </span>Фотограф </span><span class="hero-kicker__c2">· Ретушёр · Реставратор · </span><span class="hero-kicker__c3">ИИ-креатор</span>
+                </span>
+              </p>
+              <div class="hero-actions">
+                <a class="button button--hero" href="#портфолио">Смотреть портфолио</a>
+                <a class="button button--hero-secondary" href="#контакты">Написать мне</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Обо мне — варианты: по умолчанию сбалансированный центр.
-         Добавьте к <section> класс about--magazine — заголовок и акцент слева (редакционный).
-         Добавьте about--soft — тёплый фон секции. Можно вместе: about about--magazine about--soft -->
-    <section id="обо-мне" class="about scroll-reveal">
+    <section id="обо-мне" class="about">
       <div class="container about-inner">
-        <h2 class="about-heading">Обо мне</h2>
+        <h2 class="about-heading">Почему я?</h2>
         <div class="about-content">
-          <div class="about-text">
-            <p class="about-lead">Меня зовут Ольга Грачёва.</p>
-            <p>Я работаю на стыке фотографии, ретуши, реставрации и ИИ-креатива.</p>
-            <p>Помогаю сохранять воспоминания, восстанавливать старые фотографии и создавать выразительные визуальные образы.</p>
-          </div>
           <figure class="about-photo">
             <img src="images/olga-camera.png" alt="Ольга Грачёва с фотоаппаратом" width="840" height="1050" loading="lazy">
           </figure>
+          <div class="about-main">
+            <div class="about-text">
+              <p class="about-lead">Привет, я Ольга — фотограф с большой любовью к своему делу.</p>
+              <p>Моя цель — запечатлеть самые яркие моменты вашей жизни и создать неповторимые кадры, которые будут хранить тёплые воспоминания на долгие годы.</p>
+            </div>
+            <ul class="about-benefits">
+              <li class="about-benefit-card">
+                <h3>Индивидуальный подход</h3>
+                <p>Индивидуальный подход к каждому клиенту и комфортная атмосфера на съёмке.</p>
+              </li>
+              <li class="about-benefit-card">
+                <h3>Живые эмоции</h3>
+                <p>Умение уловить настоящие эмоции и передать атмосферу момента.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section id="отзывы" class="testimonials scroll-reveal" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <h2 id="testimonials-heading" class="testimonials__heading">Отзывы</h2>
+        <div
+          class="testimonials-slider"
+          data-testimonials-slider
+          role="group"
+          aria-label="Отзывы клиентов"
+        >
+          <button
+            type="button"
+            class="testimonials-slider__btn testimonials-slider__btn--prev"
+            data-testimonials-prev
+            aria-label="Предыдущий отзыв"
+          >
+            <svg class="testimonials-slider__icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14 6l-6 6 6 6"
+              />
+            </svg>
+          </button>
+          <div class="testimonials-slider__viewport">
+            <div class="testimonials-slider__track" data-testimonials-track>
+              <article class="testimonials-card is-active" data-testimonials-card aria-hidden="false">
+                <blockquote class="testimonials-card__body">
+                  <p class="testimonials-card__quote">10 из 10, редко встречаешь человека, который работает не для того, чтобы заработать, а для кайфа.</p>
+                </blockquote>
+                <p class="testimonials-card__author">Оксана Николаевна</p>
+              </article>
+              <article class="testimonials-card" data-testimonials-card aria-hidden="true">
+                <blockquote class="testimonials-card__body">
+                  <p class="testimonials-card__quote">Волшебные кадры от волшебника фотографии. Никогда не думала, что фотосессия может быть такой лёгкой и весёлой.</p>
+                </blockquote>
+                <p class="testimonials-card__author">Ирина Аленина</p>
+              </article>
+              <article class="testimonials-card" data-testimonials-card aria-hidden="true">
+                <blockquote class="testimonials-card__body">
+                  <p class="testimonials-card__quote">Это тот фотограф, которого я искала. Фотосессия прошла легко и очень комфортно.</p>
+                </blockquote>
+                <p class="testimonials-card__author">Оксана Ногина</p>
+              </article>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="testimonials-slider__btn testimonials-slider__btn--next"
+            data-testimonials-next
+            aria-label="Следующий отзыв"
+          >
+            <svg class="testimonials-slider__icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10 6l6 6-6 6"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
