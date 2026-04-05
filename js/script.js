@@ -216,8 +216,83 @@
 })();
 
 (function () {
+  function initMobileStaggerReveal() {
+    var sections = document.querySelectorAll("[data-m-reveal-section]");
+    if (!sections.length) return;
+
+    var mqMobile = window.matchMedia("(max-width: 768px)");
+    var mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function revealAll() {
+      sections.forEach(function (el) {
+        el.classList.add("m-reveal-section--visible");
+      });
+    }
+
+    function useScrollReveal() {
+      return mqMobile.matches && !mqReduce.matches;
+    }
+
+    function sectionLikelyInView(section) {
+      var r = section.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      return r.top < vh * 0.93 && r.bottom > -Math.min(r.height * 0.4, vh * 0.35);
+    }
+
+    if (!useScrollReveal()) {
+      revealAll();
+    } else if (typeof IntersectionObserver === "undefined") {
+      revealAll();
+    } else {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("m-reveal-section--visible");
+            io.unobserve(entry.target);
+          });
+        },
+        {
+          root: null,
+          rootMargin: "0px 0px -7% 0px",
+          threshold: 0.06,
+        }
+      );
+
+      sections.forEach(function (section) {
+        if (sectionLikelyInView(section)) {
+          section.classList.add("m-reveal-section--visible");
+        } else {
+          io.observe(section);
+        }
+      });
+    }
+
+    function onViewportModeChange() {
+      if (!mqMobile.matches || mqReduce.matches) {
+        revealAll();
+      }
+    }
+
+    if (typeof mqMobile.addEventListener === "function") {
+      mqMobile.addEventListener("change", onViewportModeChange);
+      mqReduce.addEventListener("change", onViewportModeChange);
+    } else if (typeof mqMobile.addListener === "function") {
+      mqMobile.addListener(onViewportModeChange);
+      mqReduce.addListener(onViewportModeChange);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMobileStaggerReveal);
+  } else {
+    initMobileStaggerReveal();
+  }
+})();
+
+(function () {
   var childSelector =
-    ".service-card, .contact-card, .portfolio-item, .ai-portfolio-item";
+    ".service-card, .contact-card, .portfolio-item, .ai-portfolio-item, .shooting-flow__card";
   var touchPressTimers = new WeakMap();
 
   function isRoughlyInView(el) {
@@ -225,6 +300,13 @@
     var vh = window.innerHeight || document.documentElement.clientHeight;
     var margin = vh * 0.08;
     return r.bottom > margin && r.top < vh - margin;
+  }
+
+  /** На узком экране карточки «Услуги» раскрываются блоком data-m-reveal-section — без scroll-reveal-child */
+  function skipServiceCardMobileMReveal(el) {
+    if (!el.classList.contains("service-card")) return false;
+    if (!window.matchMedia("(max-width: 768px)").matches) return false;
+    return !!el.closest(".services[data-m-reveal-section]");
   }
 
   function initScrollRevealChildren() {
@@ -261,6 +343,9 @@
     );
 
     nodes.forEach(function (el) {
+      if (skipServiceCardMobileMReveal(el)) {
+        return;
+      }
       el.classList.add("scroll-reveal-child");
       if (isRoughlyInView(el)) {
         el.classList.add("scroll-reveal-child--visible");
@@ -572,5 +657,237 @@
     document.addEventListener("DOMContentLoaded", initTestimonialsSlider);
   } else {
     initTestimonialsSlider();
+  }
+})();
+
+(function () {
+  /* Ключ с https://web3forms.com — замените на свой (публичный, для клиентской отправки). */
+  var WEB3FORMS_ACCESS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY";
+  var WEB3FORMS_URL = "https://api.web3forms.com/submit";
+
+  function initContactModal() {
+    var root = document.querySelector("[data-contact-modal]");
+    if (!root) return;
+
+    var panel = root.querySelector(".contact-modal__panel");
+    var form = document.getElementById("contact-modal-form");
+    var firstInput = document.getElementById("contact-name");
+    var feedbackEl = document.getElementById("contact-modal-feedback");
+    var openBtns = document.querySelectorAll("[data-contact-modal-open]");
+    var closeEls = root.querySelectorAll("[data-contact-modal-close]");
+
+    var previousFocus = null;
+
+    function isOpen() {
+      return root.classList.contains("contact-modal--open");
+    }
+
+    function syncFloatingLabels() {
+      if (!form) return;
+      form.querySelectorAll(".contact-modal__input, .contact-modal__textarea").forEach(function (el) {
+        var c = el.closest(".contact-modal__control");
+        if (!c) return;
+        c.classList.toggle("is-filled", (el.value || "").trim().length > 0);
+      });
+    }
+
+    function hideFeedback() {
+      if (!feedbackEl) return;
+      feedbackEl.hidden = true;
+      feedbackEl.textContent = "";
+      feedbackEl.classList.remove("contact-modal__feedback--success", "contact-modal__feedback--error");
+    }
+
+    function showFeedback(text, kind) {
+      if (!feedbackEl) return;
+      feedbackEl.textContent = text;
+      feedbackEl.classList.remove("contact-modal__feedback--success", "contact-modal__feedback--error");
+      if (kind === "success") feedbackEl.classList.add("contact-modal__feedback--success");
+      else if (kind === "error") feedbackEl.classList.add("contact-modal__feedback--error");
+      feedbackEl.hidden = false;
+    }
+
+    function openModal() {
+      hideFeedback();
+      previousFocus = document.activeElement;
+      root.classList.add("contact-modal--open");
+      root.setAttribute("aria-hidden", "false");
+      document.body.classList.add("contact-modal-open");
+      syncFloatingLabels();
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          window.setTimeout(function () {
+            if (!firstInput) return;
+            try {
+              firstInput.focus({ preventScroll: true });
+            } catch (err) {
+              firstInput.focus();
+            }
+          }, 340);
+        });
+      });
+    }
+
+    function closeModal() {
+      root.classList.remove("contact-modal--open");
+      root.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("contact-modal-open");
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus();
+      }
+      previousFocus = null;
+    }
+
+    openBtns.forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    closeEls.forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        closeModal();
+      });
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape" || !isOpen()) return;
+      e.preventDefault();
+      closeModal();
+    });
+
+    if (panel) {
+      panel.addEventListener("keydown", function (e) {
+        if (e.key !== "Tab" || !isOpen()) return;
+        var sel =
+          "button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])";
+        var nodes = panel.querySelectorAll(sel);
+        var list = [];
+        for (var i = 0; i < nodes.length; i++) {
+          list.push(nodes[i]);
+        }
+        if (list.length === 0) return;
+        var first = list[0];
+        var last = list[list.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+    }
+
+    if (form) {
+      var submitBtn = form.querySelector('button[type="submit"]');
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        hideFeedback();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        if (
+          !WEB3FORMS_ACCESS_KEY ||
+          WEB3FORMS_ACCESS_KEY === "REPLACE_WITH_WEB3FORMS_ACCESS_KEY"
+        ) {
+          showFeedback(
+            "Форма не настроена: укажите ключ Web3Forms в файле js/script.js (переменная WEB3FORMS_ACCESS_KEY).",
+            "error"
+          );
+          return;
+        }
+
+        var nameEl = document.getElementById("contact-name");
+        var emailEl = document.getElementById("contact-email");
+        var phoneEl = document.getElementById("contact-phone");
+        var msgEl = document.getElementById("contact-message");
+        var name = nameEl ? nameEl.value.trim() : "";
+        var email = emailEl ? emailEl.value.trim() : "";
+        var phone = phoneEl ? phoneEl.value.trim() : "";
+        var message = msgEl ? msgEl.value.trim() : "";
+
+        var payload = {
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: "Сообщение с сайта — " + name,
+          name: name,
+          email: email,
+          phone: phone,
+          message: message,
+          botcheck: false,
+        };
+
+        if (submitBtn) submitBtn.disabled = true;
+
+        fetch(WEB3FORMS_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
+        })
+          .then(function (res) {
+            return res.json().catch(function () {
+              return { success: false, message: "Некорректный ответ сервера." };
+            });
+          })
+          .then(function (data) {
+            if (data && data.success === true) {
+              form.reset();
+              syncFloatingLabels();
+              showFeedback("Спасибо! Ваше сообщение отправлено.", "success");
+            } else {
+              var errMsg =
+                (data && (data.message || (data.body && data.body.message))) ||
+                "Не удалось отправить сообщение. Попробуйте позже.";
+              showFeedback(errMsg, "error");
+            }
+          })
+          .catch(function () {
+            showFeedback("Ошибка сети. Проверьте подключение и попробуйте снова.", "error");
+          })
+          .finally(function () {
+            if (submitBtn) submitBtn.disabled = false;
+          });
+      });
+    }
+
+    if (form) {
+      form.querySelectorAll(".contact-modal__input, .contact-modal__textarea").forEach(function (el) {
+        function onFloatInput() {
+          var c = el.closest(".contact-modal__control");
+          if (!c) return;
+          c.classList.toggle("is-filled", (el.value || "").trim().length > 0);
+        }
+        el.addEventListener("input", onFloatInput);
+        el.addEventListener("change", onFloatInput);
+        el.addEventListener("blur", onFloatInput);
+      });
+    }
+
+    function tryOpenFromUrl() {
+      var hash = (location.hash || "").replace(/^#/, "");
+      var params = new URLSearchParams(location.search || "");
+      if (hash !== "contact" && params.get("contact") !== "1") return;
+      openModal();
+      if (history.replaceState) {
+        history.replaceState(null, "", location.pathname + location.search);
+      }
+    }
+
+    tryOpenFromUrl();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initContactModal);
+  } else {
+    initContactModal();
   }
 })();
