@@ -6,11 +6,19 @@
   <title>Ольга Грачёва — фотограф, ретушёр, реставратор, ИИ-креатор</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
 </head>
 <body>
+
+  <div class="site-top">
+  <!-- Тонкая полоса объявления -->
+  <div class="announcement-bar" role="region" aria-label="Открыта предзапись на фотосессию">
+    <div class="announcement-bar__track" aria-hidden="true">
+      <div class="announcement-bar__marquee" data-announcement-marquee></div>
+    </div>
+  </div>
 
   <!-- Шапка сайта -->
   <header class="site-header">
@@ -28,11 +36,13 @@
           <li><a href="#ии-портфолио">ИИ портфолио</a></li>
           <li><a href="#услуги">Услуги</a></li>
           <li><a href="#до-после">До / После</a></li>
+          <li><a href="#реставрация">Реставрация</a></li>
           <li><a href="#контакты">Контакты</a></li>
         </ul>
       </nav>
     </div>
   </header>
+  </div>
 
   <main>
     <!-- Главный экран -->
@@ -44,18 +54,14 @@
               <span class="hero-name-line">Ольга</span>
               <span class="hero-name-line">Грачёва</span>
             </h1>
-            <p class="hero-kicker">Фотограф · Ретушёр · Реставратор · ИИ-креатор</p>
+            <p class="hero-kicker">
+              <span class="hero-kicker__mobile-grid">
+                <span class="hero-kicker__c1"><span class="hero-kicker__lead" aria-hidden="true">· </span>Фотограф </span><span class="hero-kicker__c2">· Ретушёр · Реставратор · </span><span class="hero-kicker__c3">ИИ-креатор</span>
+              </span>
+            </p>
             <div class="hero-actions">
               <a class="button button--hero" href="#портфолио">Смотреть портфолио</a>
               <a class="button button--hero-secondary" href="#контакты">Написать мне</a>
-            </div>
-          </div>
-          <div class="hero-visual">
-            <div class="hero-visual-inner">
-              <picture>
-                <source media="(max-width: 768px)" srcset="assets/images/hero-mobile.jpg">
-                <img class="hero-image" src="assets/images/hero.jpg" alt="Ольга Грачёва — портрет для портфолио" width="720" height="900" loading="eager" fetchpriority="high">
-              </picture>
             </div>
           </div>
         </div>
@@ -65,7 +71,7 @@
     <!-- Обо мне — варианты: по умолчанию сбалансированный центр.
          Добавьте к <section> класс about--magazine — заголовок и акцент слева (редакционный).
          Добавьте about--soft — тёплый фон секции. Можно вместе: about about--magazine about--soft -->
-    <section id="обо-мне" class="about">
+    <section id="обо-мне" class="about scroll-reveal">
       <div class="container about-inner">
         <h2 class="about-heading">Обо мне</h2>
         <div class="about-content">
@@ -82,7 +88,7 @@
     </section>
 
     <!-- Портфолио -->
-    <section id="портфолио" class="portfolio">
+    <section id="портфолио" class="portfolio scroll-reveal">
       <div class="container">
         <h2>Портфолио</h2>
         <div class="portfolio-grid">
@@ -109,13 +115,13 @@
     </section>
 
     <!-- ИИ портфолио -->
-    <section id="ии-портфолио" class="ai-portfolio" aria-labelledby="ai-portfolio-heading">
+    <section id="ии-портфолио" class="ai-portfolio scroll-reveal" aria-labelledby="ai-portfolio-heading">
       <div class="container">
         <h2 id="ai-portfolio-heading">ИИ портфолио</h2>
         <p class="ai-portfolio-intro">Работы, созданные с помощью нейросетей</p>
         <div class="ai-portfolio-grid">
           <figure class="ai-portfolio-item">
-            <img src="assets/images/ai-portfolio-01.png" alt="ИИ-портрет: чёрный пиджак и жемчужное ожерелье, драматичный свет" width="900" height="1200" loading="lazy" decoding="async">
+            <img src="assets/images/ai-portfolio-01.png" alt="ИИ-кадр: женщина в латексе и голова дракона, кинематографичный тёмный свет" width="576" height="1024" loading="lazy" decoding="async">
           </figure>
           <figure class="ai-portfolio-item">
             <img src="assets/images/ai-portfolio-02.png" alt="ИИ-портрет: новогодний образ с ёлкой и шарами на голове" width="900" height="1200" loading="lazy" decoding="async">
@@ -124,7 +130,7 @@
             <img src="assets/images/ai-portfolio-03.png" alt="ИИ-портрет: красный костюм и сердце на голубом фоне" width="900" height="1200" loading="lazy" decoding="async">
           </figure>
           <figure class="ai-portfolio-item">
-            <img src="assets/images/ai-portfolio-04.png" alt="ИИ-портрет: осколки стекла и нити, кинематографичный стиль" width="900" height="1200" loading="lazy" decoding="async">
+            <img src="assets/images/ai-portfolio-04.png" alt="ИИ-портрет: Медуза со змеями в волосах, драматичный свет" width="576" height="1024" loading="lazy" decoding="async">
           </figure>
           <figure class="ai-portfolio-item">
             <img src="assets/images/ai-portfolio-05.png" alt="ИИ-портрет: кудри и драпировка из атласа, дым на фоне" width="900" height="1200" loading="lazy" decoding="async">
@@ -137,7 +143,7 @@
     </section>
 
     <!-- Услуги -->
-    <section id="услуги" class="services">
+    <section id="услуги" class="services scroll-reveal">
       <div class="container">
         <h2>Услуги</h2>
         <div class="services-grid">
@@ -161,11 +167,11 @@
       </div>
     </section>
 
-    <!-- До / После -->
-    <section id="до-после" class="before-after">
+    <!-- До / После: две работы в сетке -->
+    <section id="до-после" class="before-after scroll-reveal">
       <div class="container">
         <h2>До / После</h2>
-        <div class="before-after-list">
+        <div class="before-after-grid">
           <article class="before-after-item">
             <h3>Ретушь портрета</h3>
             <div
@@ -221,6 +227,69 @@
             </div>
           </article>
           <article class="before-after-item">
+            <h3>Студийный портрет</h3>
+            <div
+              class="before-after-slider"
+              data-before-after-slider
+              style="--ba-pos: 50"
+              role="group"
+              aria-label="Сравнение студийного портрета до и после ретуши"
+            >
+              <div class="before-after-slider__viewport">
+                <img
+                  class="before-after-slider__img before-after-slider__img--before"
+                  src="assets/images/retouch-2-before.png"
+                  alt="До: студийный портрет без ретуши"
+                  width="682"
+                  height="1024"
+                  loading="lazy"
+                  draggable="false"
+                >
+                <span class="before-after-slider__badge before-after-slider__badge--before">До</span>
+                <div class="before-after-slider__clip">
+                  <img
+                    class="before-after-slider__img before-after-slider__img--after"
+                    src="assets/images/retouch-2-after.png"
+                    alt="После: студийный портрет после ретуши"
+                    width="682"
+                    height="1024"
+                    loading="lazy"
+                    draggable="false"
+                  >
+                </div>
+                <span class="before-after-slider__badge before-after-slider__badge--after">После</span>
+                <div class="before-after-slider__divider" aria-hidden="true">
+                  <span class="before-after-slider__line"></span>
+                  <span class="before-after-slider__handle"></span>
+                </div>
+                <label class="before-after-slider__range-wrap">
+                  <span class="visually-hidden">Позиция границы сравнения</span>
+                  <input
+                    type="range"
+                    class="before-after-slider__range"
+                    min="0"
+                    max="100"
+                    value="50"
+                    step="0.25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="50"
+                    aria-valuetext="50 процентов"
+                  >
+                </label>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Реставрация: две работы в сетке -->
+    <section id="реставрация" class="restoration before-after scroll-reveal">
+      <div class="container">
+        <h2>Реставрация</h2>
+        <div class="before-after-grid">
+          <article class="before-after-item">
             <h3>Реставрация старой фотографии</h3>
             <div
               class="before-after-slider"
@@ -274,12 +343,66 @@
               </div>
             </div>
           </article>
+          <article class="before-after-item">
+            <h3>Военный портрет</h3>
+            <div
+              class="before-after-slider"
+              data-before-after-slider
+              style="--ba-pos: 50"
+              role="group"
+              aria-label="Сравнение военного портрета до и после реставрации"
+            >
+              <div class="before-after-slider__viewport">
+                <img
+                  class="before-after-slider__img before-after-slider__img--before"
+                  src="assets/images/restoration-2-before.png"
+                  alt="До: повреждённый снимок в военной форме, сепия"
+                  width="370"
+                  height="589"
+                  loading="lazy"
+                  draggable="false"
+                >
+                <span class="before-after-slider__badge before-after-slider__badge--before">До</span>
+                <div class="before-after-slider__clip">
+                  <img
+                    class="before-after-slider__img before-after-slider__img--after"
+                    src="assets/images/restoration-2-after.png"
+                    alt="После: отреставрированный и раскрашенный военный портрет"
+                    width="716"
+                    height="1024"
+                    loading="lazy"
+                    draggable="false"
+                  >
+                </div>
+                <span class="before-after-slider__badge before-after-slider__badge--after">После</span>
+                <div class="before-after-slider__divider" aria-hidden="true">
+                  <span class="before-after-slider__line"></span>
+                  <span class="before-after-slider__handle"></span>
+                </div>
+                <label class="before-after-slider__range-wrap">
+                  <span class="visually-hidden">Позиция границы сравнения</span>
+                  <input
+                    type="range"
+                    class="before-after-slider__range"
+                    min="0"
+                    max="100"
+                    value="50"
+                    step="0.25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="50"
+                    aria-valuetext="50 процентов"
+                  >
+                </label>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- Контакты -->
-    <section id="контакты" class="contact">
+    <section id="контакты" class="contact scroll-reveal">
       <div class="container">
         <h2>Контакты</h2>
         <ul class="contact-list">
@@ -296,10 +419,14 @@
   </main>
 
   <!-- Подвал -->
-  <footer class="site-footer">
+  <footer class="site-footer scroll-reveal">
     <div class="container">
       <p class="footer-name">Ольга Грачёва</p>
-      <p class="footer-tagline">Фотограф • Ретушёр • Реставратор • ИИ-креатор</p>
+      <p class="footer-tagline">
+        <span class="hero-kicker__mobile-grid">
+          <span class="hero-kicker__c1"><span class="hero-kicker__lead" aria-hidden="true">· </span>Фотограф </span><span class="hero-kicker__c2">· Ретушёр · Реставратор · </span><span class="hero-kicker__c3">ИИ-креатор</span>
+        </span>
+      </p>
       <p class="footer-copy">© 2026 Все права защищены</p>
     </div>
   </footer>
