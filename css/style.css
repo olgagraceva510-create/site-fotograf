@@ -3189,7 +3189,8 @@ body.contact-modal-open {
 
   .portfolio-item::after,
   .ai-portfolio-item::after,
-  .about-photo::after {
+  .about-photo::after,
+  .before-after-item::after {
     display: none;
   }
 }
@@ -3563,6 +3564,45 @@ body.contact-modal-open {
   }
 }
 
+.before-after-item {
+  position: relative;
+  z-index: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.before-after-item::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: -1;
+  width: min(92%, 26rem);
+  height: clamp(2.5rem, 32%, 4rem);
+  transform: translateX(-50%) translateY(55%) scale(0.9, 0.65);
+  transform-origin: 50% 0%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 118% 100% at 50% 0%,
+    rgba(252, 252, 255, 0.5) 0%,
+    rgba(235, 236, 244, 0.24) 42%,
+    transparent 72%
+  );
+  filter: blur(16px);
+  opacity: 0;
+  transition:
+    opacity var(--photo-hover-duration) var(--photo-glow-ease),
+    transform var(--photo-hover-duration) var(--photo-glow-ease),
+    filter var(--photo-hover-duration) var(--photo-glow-ease);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .before-after-item:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(72%) scale(1.08, 0.95);
+    filter: blur(28px);
+  }
+}
+
 .before-after-item h3 {
   margin-bottom: 1.25rem;
   font-weight: 500;
@@ -3610,31 +3650,6 @@ body.contact-modal-open {
   box-shadow: var(--glass-shadow);
   user-select: none;
   touch-action: none;
-}
-
-.before-after-slider__viewport::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  height: 52%;
-  pointer-events: none;
-  background: linear-gradient(
-    to top,
-    rgba(242, 242, 248, 0.36) 0%,
-    rgba(224, 224, 232, 0.14) 42%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity var(--hover-ui-duration) var(--hover-ui-ease);
-}
-
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .before-after-slider__viewport:hover::before {
-    opacity: 1;
-  }
 }
 
 .before-after-slider__img--before {
@@ -3701,6 +3716,52 @@ body.contact-modal-open {
 .before-after-slider__badge--after {
   right: 0.75rem;
   top: 0.75rem;
+}
+
+/* До/после без слайдера: две фотографии в одной карточке (подстраницы) */
+.before-after-static {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  width: 100%;
+  max-width: min(42rem, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .before-after-static {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .before-after-static__cell {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+.before-after-static__viewport {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-height: min(85vh, 52rem);
+  border-radius: var(--radius-glass);
+  overflow: hidden;
+  background: rgba(8, 8, 10, 0.42);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.before-after-static__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  pointer-events: none;
+  user-select: none;
 }
 
 .before-after-slider__divider {
@@ -4214,6 +4275,16 @@ body.contact-modal-open {
   padding: 0;
 }
 
+/* Портфолио «ещё работы»: заполнение ячейки 3:4; первая работа — смещение по вертикали под композицию */
+.subpage-gallery .gallery .portfolio-item img {
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+.subpage-gallery .gallery .portfolio-grid .portfolio-item:first-child img {
+  object-position: center 58%;
+}
+
 .subpage-back-wrap {
   margin-top: clamp(2.25rem, 5vw, 3.25rem);
   text-align: center;
@@ -4723,26 +4794,14 @@ main > section.client-section {
     transform: scale(1.02);
   }
 
-  .before-after-item {
-    -webkit-tap-highlight-color: transparent;
-  }
-
   .before-after-slider__viewport {
-    transition:
-      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .before-after-item.touch-pressed .before-after-slider__viewport {
-    transform: scale(1.02);
-    transform-origin: center center;
-    border-color: rgba(255, 255, 255, 0.22);
-    box-shadow:
-      var(--glass-shadow),
-      0 0 0 1px rgba(255, 255, 255, 0.1),
-      0 6px 28px rgba(255, 255, 255, 0.09),
-      0 0 40px rgba(232, 232, 240, 0.08);
+  .before-after-item.touch-pressed::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(72%) scale(1.08, 0.95);
+    filter: blur(28px);
   }
 }
 
