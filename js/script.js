@@ -661,16 +661,15 @@
 })();
 
 (function () {
-  /* Ключ с https://web3forms.com — замените на свой (публичный, для клиентской отправки). */
-  var WEB3FORMS_ACCESS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY";
-  var WEB3FORMS_URL = "https://api.web3forms.com/submit";
-
   function initContactModal() {
     var root = document.querySelector("[data-contact-modal]");
     if (!root) return;
 
     var panel = root.querySelector(".contact-modal__panel");
     var form = document.getElementById("contact-modal-form");
+    var mainEl = document.getElementById("contact-modal-main");
+    var successView = document.getElementById("contact-modal-success-view");
+    var successCloseBtn = successView ? successView.querySelector(".contact-modal__success-close") : null;
     var firstInput = document.getElementById("contact-name");
     var feedbackEl = document.getElementById("contact-modal-feedback");
     var openBtns = document.querySelectorAll("[data-contact-modal-open]");
@@ -707,8 +706,30 @@
       feedbackEl.hidden = false;
     }
 
-    function openModal() {
+    function resetModalContent() {
       hideFeedback();
+      if (mainEl) mainEl.hidden = false;
+      if (successView) successView.hidden = true;
+    }
+
+    function showSuccessState() {
+      hideFeedback();
+      if (mainEl) mainEl.hidden = true;
+      if (successView) successView.hidden = false;
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          if (!successCloseBtn) return;
+          try {
+            successCloseBtn.focus({ preventScroll: true });
+          } catch (err) {
+            successCloseBtn.focus();
+          }
+        });
+      });
+    }
+
+    function openModal() {
+      resetModalContent();
       previousFocus = document.activeElement;
       root.classList.add("contact-modal--open");
       root.setAttribute("aria-hidden", "false");
@@ -729,6 +750,7 @@
     }
 
     function closeModal() {
+      resetModalContent();
       root.classList.remove("contact-modal--open");
       root.setAttribute("aria-hidden", "true");
       document.body.classList.remove("contact-modal-open");
@@ -793,14 +815,11 @@
           form.reportValidity();
           return;
         }
-        if (
-          !WEB3FORMS_ACCESS_KEY ||
-          WEB3FORMS_ACCESS_KEY === "REPLACE_WITH_WEB3FORMS_ACCESS_KEY"
-        ) {
-          showFeedback(
-            "Форма не настроена: укажите ключ Web3Forms в файле js/script.js (переменная WEB3FORMS_ACCESS_KEY).",
-            "error"
-          );
+        var keyInput = form.querySelector('input[name="access_key"]');
+        var accessKey = keyInput && keyInput.value ? keyInput.value.trim() : "";
+        var endpoint = form.getAttribute("action");
+        if (!accessKey || !endpoint) {
+          showFeedback("Форма не настроена для отправки.", "error");
           return;
         }
 
@@ -814,7 +833,7 @@
         var message = msgEl ? msgEl.value.trim() : "";
 
         var payload = {
-          access_key: WEB3FORMS_ACCESS_KEY,
+          access_key: accessKey,
           subject: "Сообщение с сайта — " + name,
           name: name,
           email: email,
@@ -825,7 +844,7 @@
 
         if (submitBtn) submitBtn.disabled = true;
 
-        fetch(WEB3FORMS_URL, {
+        fetch(endpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -842,7 +861,7 @@
             if (data && data.success === true) {
               form.reset();
               syncFloatingLabels();
-              showFeedback("Спасибо! Ваше сообщение отправлено.", "success");
+              showSuccessState();
             } else {
               var errMsg =
                 (data && (data.message || (data.body && data.body.message))) ||

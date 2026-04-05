@@ -89,6 +89,7 @@
           <span class="hero-kicker__c1"><span class="hero-kicker__lead" aria-hidden="true">· </span>Фотограф </span><span class="hero-kicker__c2">· Ретушёр · Реставратор · </span><span class="hero-kicker__c3">ИИ-креатор</span>
         </span>
       </p>
+      <p class="footer-self-employed">Самозанятый · Электронный чек предоставляется</p>
       <p class="footer-copy">
         <span>© 2026 Все права защищены</span>
         <span class="footer-copy__sep" aria-hidden="true">·</span>
@@ -114,6 +115,7 @@
       <button type="button" class="contact-modal__close" data-contact-modal-close aria-label="Закрыть">
         <span class="contact-modal__close-lines" aria-hidden="true"></span>
       </button>
+      <div class="contact-modal__main" id="contact-modal-main">
       <h2 class="contact-modal__title" id="contact-modal-title">Написать мне</h2>
       <p
         class="contact-modal__feedback"
@@ -122,7 +124,14 @@
         role="status"
         aria-live="polite"
       ></p>
-      <form class="contact-modal__form" id="contact-modal-form" novalidate>
+      <form
+        class="contact-modal__form"
+        id="contact-modal-form"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        novalidate
+      >
+        <input type="hidden" name="access_key" value="5266b579-6f93-430d-8e60-ccb8cfebbf42">
         <div class="contact-modal__field">
           <div class="contact-modal__control">
             <input
@@ -189,6 +198,23 @@
         </div>
         <button type="submit" class="contact-modal__submit">Отправить</button>
       </form>
+      </div>
+      <div
+        class="contact-modal__success-view"
+        id="contact-modal-success-view"
+        hidden
+        role="status"
+        aria-live="polite"
+      >
+        <div class="contact-modal__success-inner">
+          <p class="contact-modal__success-line contact-modal__success-line--lead">Спасибо!</p>
+          <p class="contact-modal__success-line">Ваше сообщение отправлено.</p>
+          <p class="contact-modal__success-line">Я свяжусь с вами в ближайшее время.</p>
+          <button type="button" class="button contact-modal__success-close" data-contact-modal-close>
+            Закрыть
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 

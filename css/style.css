@@ -461,7 +461,6 @@ main > section.about {
   justify-content: flex-start;
   flex: 0 1 auto;
   min-width: 0;
-  max-width: 100%;
   line-height: 0;
   background: none;
   background-color: transparent;
@@ -473,8 +472,7 @@ main > section.about {
 .logo__img {
   display: block;
   width: auto;
-  height: 36px;
-  max-width: 100%;
+  height: 60px;
   object-fit: contain;
   object-position: left center;
   background: none;
@@ -487,11 +485,11 @@ main > section.about {
 
 @media (min-width: 769px) {
   .logo {
-    max-width: min(42%, 15.5rem);
+    max-width: min(62%, 26rem);
   }
 
   .logo__img {
-    height: 48px;
+    height: 80px;
   }
 }
 
@@ -503,7 +501,7 @@ main > section.about {
 
 @media (min-width: 769px) and (max-width: 960px) {
   .logo {
-    max-width: min(28%, 9.5rem);
+    max-width: min(44%, 17rem);
   }
 
   .main-nav ul {
@@ -624,6 +622,11 @@ main > section.about {
 }
 
 @media (max-width: 768px) {
+  header {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .nav-toggle {
     display: flex;
   }
@@ -970,6 +973,19 @@ button.button--hero-secondary {
   font: inherit;
 }
 
+@media (max-width: 768px) {
+  .hero-actions {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .hero .button--hero,
+  .hero .button--hero-secondary {
+    font-size: 14px;
+    justify-content: center;
+  }
+}
+
 /* =============================================================================
    Модальное окно «Написать мне»
    ============================================================================= */
@@ -1166,6 +1182,56 @@ button.button--hero-secondary {
   color: rgba(255, 210, 205, 0.96);
   border-color: rgba(210, 100, 95, 0.4);
   background: rgba(180, 60, 55, 0.14);
+}
+
+.contact-modal__main {
+  min-width: 0;
+}
+
+.contact-modal__success-view:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.75rem, 3vw, 1.5rem) 0.25rem;
+  min-height: min(16rem, 52vh);
+  box-sizing: border-box;
+}
+
+.contact-modal__success-inner {
+  width: 100%;
+  max-width: 21rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-modal__success-line {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+
+.contact-modal__success-line:last-of-type {
+  margin-bottom: 0;
+}
+
+.contact-modal__success-line--lead {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 3.2vw, 1.7rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.contact-modal__success-close {
+  margin-top: 1.4rem;
+  min-width: 14rem;
+  border-radius: 9999px;
 }
 
 .contact-modal__form {
@@ -1761,7 +1827,8 @@ body.contact-modal-open {
   }
 }
 
-.hero-kicker {
+.hero-kicker,
+.hero .hero-subtitle {
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -1777,6 +1844,10 @@ body.contact-modal-open {
   white-space: normal;
   color: rgba(189, 189, 198, 0.92);
   text-wrap: balance;
+}
+
+.hero .hero-subtitle {
+  text-wrap: unset;
 }
 
 /* Мобильная вёрстка подписи: 2 строки, вторая под точкой между «Фотограф» и «Ретушёр» */
@@ -1818,6 +1889,14 @@ body.contact-modal-open {
   max-width: min(100%, 26rem);
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box;
+}
+
+.hero .hero-actions a,
+.hero .hero-actions button {
+  width: 220px;
+  max-width: 100%;
+  text-align: center;
   box-sizing: border-box;
 }
 
@@ -1926,7 +2005,8 @@ body.contact-modal-open {
     line-height: 1;
   }
 
-  .hero-kicker {
+  .hero-kicker,
+  .hero .hero-subtitle {
     margin: 0 0 3rem;
     font-size: clamp(0.75rem, 0.5rem + 0.55vw, 0.875rem);
     font-weight: 500;
@@ -1934,6 +2014,10 @@ body.contact-modal-open {
     line-height: 1.62;
     text-align: left;
     text-wrap: balance;
+  }
+
+  .hero .hero-subtitle {
+    text-wrap: unset;
   }
 
   .hero-kicker__mobile-grid {
@@ -1985,6 +2069,7 @@ body.contact-modal-open {
   .hero-visual,
   .hero-name,
   .hero-kicker,
+  .hero .hero-subtitle,
   .hero-actions {
     opacity: 0;
     transform: translateY(14px);
@@ -1999,7 +2084,8 @@ body.contact-modal-open {
     animation-delay: 0.12s;
   }
 
-  .hero-kicker {
+  .hero-kicker,
+  .hero .hero-subtitle {
     animation-delay: 0.28s;
   }
 
@@ -2018,8 +2104,8 @@ body.contact-modal-open {
 /* Узкий экран: первый экран — то же fade + 30px, но медленнее и по скроллу (класс ставит JS) */
 @media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
   .hero-visual,
-  .hero-name,
   .hero-kicker,
+  .hero .hero-subtitle,
   .hero-actions {
     animation: none;
     opacity: 0;
@@ -2029,12 +2115,26 @@ body.contact-modal-open {
       transform var(--m-reveal-duration) var(--m-reveal-ease);
   }
 
+  .hero-name {
+    animation: none;
+    opacity: 0;
+    transform: translate(6px, var(--m-reveal-y));
+    transition:
+      opacity var(--m-reveal-duration) var(--m-reveal-ease),
+      transform var(--m-reveal-duration) var(--m-reveal-ease);
+  }
+
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-visual,
-  section.hero[data-m-reveal-section].m-reveal-section--visible .hero-name,
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-kicker,
+  section.hero[data-m-reveal-section].m-reveal-section--visible .hero-subtitle,
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-actions {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  section.hero[data-m-reveal-section].m-reveal-section--visible .hero-name {
+    opacity: 1;
+    transform: translate(6px, 0);
   }
 
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-visual {
@@ -2045,7 +2145,8 @@ body.contact-modal-open {
     transition-delay: calc(var(--m-reveal-stagger) * 1);
   }
 
-  section.hero[data-m-reveal-section].m-reveal-section--visible .hero-kicker {
+  section.hero[data-m-reveal-section].m-reveal-section--visible .hero-kicker,
+  section.hero[data-m-reveal-section].m-reveal-section--visible .hero-subtitle {
     transition-delay: calc(var(--m-reveal-stagger) * 2.25);
   }
 
@@ -2054,10 +2155,54 @@ body.contact-modal-open {
   }
 }
 
+@media (max-width: 768px) {
+  .hero .hero-visual__img {
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .hero .hero-content,
+  .hero .hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  main > section.hero,
+  .hero-content {
+    padding-top: 28px;
+    padding-bottom: 36px;
+  }
+
+  .hero h1 {
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  .hero .hero-subtitle__tail {
+    display: block;
+  }
+
+  .hero .hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-top: 26px;
+    width: 100%;
+    max-width: min(100%, 26rem);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-visual,
   .hero-name,
   .hero-kicker,
+  .hero .hero-subtitle,
   .hero-actions {
     animation: none !important;
     opacity: 1 !important;
@@ -2071,6 +2216,12 @@ body.contact-modal-open {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .hero h1.hero-name {
+    transform: translateX(6px) !important;
   }
 }
 
@@ -3936,6 +4087,30 @@ body.contact-modal-open {
   justify-items: center;
 }
 
+@media (max-width: 768px) {
+  /* Вторая строка: левый край совпадает с началом col2 (точка после «Фотограф»);
+     весь блок .hero-kicker__mobile-grid по-прежнему центрируется через max-content + margin auto */
+  .site-footer .footer-tagline .hero-kicker__c3 {
+    display: block;
+    justify-self: start;
+    margin-left: 0;
+    text-align: left;
+  }
+}
+
+.footer-self-employed {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+  opacity: 0.72;
+  margin: 0 0 0.65rem;
+  text-align: center;
+  max-width: 36rem;
+}
+
 .footer-copy {
   display: flex;
   flex-wrap: wrap;
@@ -3964,6 +4139,90 @@ body.contact-modal-open {
 .footer-copy a:hover {
   color: var(--color-text);
   opacity: 1;
+}
+
+/* =============================================================================
+   Ссылка «Смотреть больше» под секциями главной
+   ============================================================================= */
+
+.section-more-wrap {
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  text-align: center;
+}
+
+.section-more-link {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: var(--font-size-caption);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(189, 189, 198, 0.88);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 0.15em;
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.section-more-link:hover,
+.section-more-link:focus-visible {
+  color: rgba(255, 255, 255, 0.95);
+  border-bottom-color: rgba(255, 255, 255, 0.32);
+}
+
+.section-more-link:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 4px;
+}
+
+/* =============================================================================
+   Подстраницы: заголовок + галерея дополнительных работ
+   ============================================================================= */
+
+.subpage-gallery {
+  background-color: transparent;
+}
+
+.subpage-gallery__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.85rem, 4.2vw, 2.65rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  text-align: center;
+  text-wrap: balance;
+  margin: 0 0 0.65rem;
+}
+
+.subpage-gallery__intro {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--leading-body);
+  letter-spacing: 0.01em;
+  color: var(--color-text-muted);
+  text-align: center;
+  max-width: 34rem;
+  margin: 0 auto clamp(2rem, 4.5vw, 2.85rem);
+}
+
+/* Пустой контейнер на подстраницах; внутрь — например .portfolio-grid или .ai-portfolio-grid с карточками */
+.subpage-gallery .gallery {
+  width: 100%;
+  margin: clamp(1.25rem, 3vw, 2rem) 0 0;
+  padding: 0;
+}
+
+.subpage-back-wrap {
+  margin-top: clamp(2.25rem, 5vw, 3.25rem);
+  text-align: center;
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .subpage-gallery .ai-portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* =============================================================================

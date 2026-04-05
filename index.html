@@ -78,11 +78,7 @@
                 <span class="hero-name-line hero-name-line--first hero-name-gradient-text"><span class="initial">О</span>льга</span>
                 <span class="hero-name-line hero-name-line--surname hero-name-gradient-text">Грачёва</span>
               </h1>
-              <p class="hero-kicker">
-                <span class="hero-kicker__mobile-grid">
-                  <span class="hero-kicker__c1"><span class="hero-kicker__lead" aria-hidden="true">· </span>Фотограф </span><span class="hero-kicker__c2">· Ретушёр · Реставратор · </span><span class="hero-kicker__c3">ИИ-креатор</span>
-                </span>
-              </p>
+              <p class="hero-subtitle"><span class="hero-subtitle__lead">• Фотограф · ретушёр · реставратор · </span><span class="hero-subtitle__tail">ИИ-креатор</span></p>
               <div class="hero-actions">
                 <a class="button button--hero" href="#портфолио">Смотреть портфолио</a>
                 <button type="button" class="button button--hero-secondary" data-contact-modal-open>
@@ -106,6 +102,7 @@
             <div class="about-text">
               <p class="about-lead">Привет, я Ольга — фотограф с большой любовью к своему делу.</p>
               <p>Моя цель — запечатлеть самые яркие моменты вашей жизни и создать неповторимые кадры, которые будут хранить тёплые воспоминания на долгие годы.</p>
+              <p>Работаю как самозанятый. При необходимости предоставляю электронный чек.</p>
             </div>
             <ul class="about-benefits">
               <li class="about-benefit-card">
@@ -248,6 +245,9 @@
             <img src="assets/images/portfolio-06.png" alt="Портрет на сене, небо и снопы на фоне" loading="lazy">
           </div>
         </div>
+        <p class="section-more-wrap">
+          <a class="section-more-link" href="portfolio.html">Смотреть больше →</a>
+        </p>
       </div>
     </section>
 
@@ -276,6 +276,9 @@
             <img src="assets/images/ai-portfolio-06.png" alt="ИИ-портрет: шахматная фигура, кожа и золотые акценты" width="900" height="1200" loading="lazy" decoding="async">
           </figure>
         </div>
+        <p class="section-more-wrap">
+          <a class="section-more-link" href="ai-portfolio.html">Смотреть больше →</a>
+        </p>
       </div>
     </section>
 
@@ -418,6 +421,9 @@
             </div>
           </article>
         </div>
+        <p class="section-more-wrap">
+          <a class="section-more-link" href="retouch.html">Смотреть больше →</a>
+        </p>
       </div>
     </section>
 
@@ -535,6 +541,9 @@
             </div>
           </article>
         </div>
+        <p class="section-more-wrap">
+          <a class="section-more-link" href="restoration.html">Смотреть больше →</a>
+        </p>
       </div>
     </section>
 
@@ -575,6 +584,7 @@
           <span class="hero-kicker__c1"><span class="hero-kicker__lead" aria-hidden="true">· </span>Фотограф </span><span class="hero-kicker__c2">· Ретушёр · Реставратор · </span><span class="hero-kicker__c3">ИИ-креатор</span>
         </span>
       </p>
+      <p class="footer-self-employed">Самозанятый · Электронный чек предоставляется</p>
       <p class="footer-copy">
         <span>© 2026 Все права защищены</span>
         <span class="footer-copy__sep" aria-hidden="true">·</span>
@@ -600,6 +610,7 @@
       <button type="button" class="contact-modal__close" data-contact-modal-close aria-label="Закрыть">
         <span class="contact-modal__close-lines" aria-hidden="true"></span>
       </button>
+      <div class="contact-modal__main" id="contact-modal-main">
       <h2 class="contact-modal__title" id="contact-modal-title">Написать мне</h2>
       <p
         class="contact-modal__feedback"
@@ -608,7 +619,14 @@
         role="status"
         aria-live="polite"
       ></p>
-      <form class="contact-modal__form" id="contact-modal-form" novalidate>
+      <form
+        class="contact-modal__form"
+        id="contact-modal-form"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        novalidate
+      >
+        <input type="hidden" name="access_key" value="5266b579-6f93-430d-8e60-ccb8cfebbf42">
         <div class="contact-modal__field">
           <div class="contact-modal__control">
             <input
@@ -675,6 +693,23 @@
         </div>
         <button type="submit" class="contact-modal__submit">Отправить</button>
       </form>
+      </div>
+      <div
+        class="contact-modal__success-view"
+        id="contact-modal-success-view"
+        hidden
+        role="status"
+        aria-live="polite"
+      >
+        <div class="contact-modal__success-inner">
+          <p class="contact-modal__success-line contact-modal__success-line--lead">Спасибо!</p>
+          <p class="contact-modal__success-line">Ваше сообщение отправлено.</p>
+          <p class="contact-modal__success-line">Я свяжусь с вами в ближайшее время.</p>
+          <button type="button" class="button contact-modal__success-close" data-contact-modal-close>
+            Закрыть
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
