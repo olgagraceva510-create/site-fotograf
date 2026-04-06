@@ -652,10 +652,12 @@ main > section.about {
   }
 
   .site-header.nav-open .main-nav {
-    max-height: 24rem;
+    max-height: min(36rem, calc(100dvh - 5rem));
     opacity: 1;
     pointer-events: auto;
     box-shadow: var(--shadow-soft);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .main-nav ul {
