@@ -216,6 +216,66 @@
 })();
 
 (function () {
+  function initSectionHeadingsReveal() {
+    var headings = document.querySelectorAll("main > section > .container > h2");
+    if (!headings.length) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      headings.forEach(function (h) {
+        h.classList.add("section-heading-reveal", "is-visible");
+      });
+      return;
+    }
+
+    headings.forEach(function (h) {
+      h.classList.add("section-heading-reveal");
+    });
+
+    var mqMobile = window.matchMedia("(max-width: 768px)");
+
+    if (typeof IntersectionObserver === "undefined") {
+      headings.forEach(function (h) {
+        h.classList.add("is-visible");
+      });
+      return;
+    }
+
+    // Важно: дать браузеру применить initial state, иначе на mobile переход может не проиграться
+    function observeAfterPaint() {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          });
+        },
+        {
+          root: null,
+          // На mobile триггер раньше и мягче (меньше threshold)
+          rootMargin: mqMobile.matches ? "0px 0px -18% 0px" : "0px 0px -10% 0px",
+          threshold: mqMobile.matches ? 0.05 : 0.12,
+        }
+      );
+
+      headings.forEach(function (h) {
+        io.observe(h);
+      });
+    }
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(observeAfterPaint);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSectionHeadingsReveal);
+  } else {
+    initSectionHeadingsReveal();
+  }
+})();
+
+(function () {
   function initMobileStaggerReveal() {
     var sections = document.querySelectorAll("[data-m-reveal-section]");
     if (!sections.length) return;

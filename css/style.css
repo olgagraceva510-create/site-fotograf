@@ -4573,9 +4573,36 @@ main > section.client-section {
   transform: translateY(0);
 }
 
+/* Единый premium reveal для заголовков секций (desktop + mobile): сверху вниз + лёгкий blur */
+:root {
+  --section-heading-reveal-duration: 0.8s;
+  --section-heading-reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --section-heading-reveal-y: -24px;
+  --section-heading-reveal-blur: 8px;
+}
+
+/* Базовое (до появления) состояние */
+.section-heading-reveal {
+  opacity: 0;
+  transform: translateY(var(--section-heading-reveal-y));
+  filter: blur(var(--section-heading-reveal-blur));
+  will-change: opacity, transform, filter;
+  transition:
+    opacity var(--section-heading-reveal-duration) var(--section-heading-reveal-ease),
+    transform var(--section-heading-reveal-duration) var(--section-heading-reveal-ease),
+    filter var(--section-heading-reveal-duration) var(--section-heading-reveal-ease);
+}
+
+/* Финальное состояние (после входа в viewport) */
+.section-heading-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
 /* Мобильное поэтапное появление: opacity + translateY(30px), медленно, по очереди (класс m-reveal-section--visible — JS) */
 @media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
-  section.about[data-m-reveal-section]:not(.m-reveal-section--visible) .about-heading,
+  section.about[data-m-reveal-section]:not(.m-reveal-section--visible) .about-heading:not(.section-heading-reveal),
   section.about[data-m-reveal-section]:not(.m-reveal-section--visible) .about-photo,
   section.about[data-m-reveal-section]:not(.m-reveal-section--visible) .about-text,
   section.about[data-m-reveal-section]:not(.m-reveal-section--visible) .about-benefit-card {
@@ -4586,7 +4613,7 @@ main > section.client-section {
       transform var(--m-reveal-duration) var(--m-reveal-ease);
   }
 
-  section.about[data-m-reveal-section].m-reveal-section--visible .about-heading,
+  section.about[data-m-reveal-section].m-reveal-section--visible .about-heading:not(.section-heading-reveal),
   section.about[data-m-reveal-section].m-reveal-section--visible .about-photo,
   section.about[data-m-reveal-section].m-reveal-section--visible .about-text,
   section.about[data-m-reveal-section].m-reveal-section--visible .about-benefit-card {
@@ -4622,7 +4649,6 @@ main > section.client-section {
     transition: none !important;
   }
 
-  .services[data-m-reveal-section]:not(.m-reveal-section--visible) h2,
   .services[data-m-reveal-section]:not(.m-reveal-section--visible) .service-card {
     opacity: 0;
     transform: translateY(var(--m-reveal-y));
@@ -4632,15 +4658,10 @@ main > section.client-section {
     pointer-events: none;
   }
 
-  .services[data-m-reveal-section].m-reveal-section--visible h2,
   .services[data-m-reveal-section].m-reveal-section--visible .service-card {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
-  }
-
-  .services[data-m-reveal-section].m-reveal-section--visible h2 {
-    transition-delay: 0s;
   }
 
   .services[data-m-reveal-section].m-reveal-section--visible .services-grid .service-card:nth-child(1) {
@@ -4659,7 +4680,6 @@ main > section.client-section {
     transition-delay: calc(var(--m-reveal-stagger) * 4);
   }
 
-  .testimonials[data-m-reveal-section]:not(.m-reveal-section--visible) .testimonials__heading,
   .testimonials[data-m-reveal-section]:not(.m-reveal-section--visible) .testimonials-slider {
     opacity: 0;
     transform: translateY(var(--m-reveal-y));
@@ -4668,14 +4688,9 @@ main > section.client-section {
       transform var(--m-reveal-duration) var(--m-reveal-ease);
   }
 
-  .testimonials[data-m-reveal-section].m-reveal-section--visible .testimonials__heading,
   .testimonials[data-m-reveal-section].m-reveal-section--visible .testimonials-slider {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  .testimonials[data-m-reveal-section].m-reveal-section--visible .testimonials__heading {
-    transition-delay: 0s;
   }
 
   .testimonials[data-m-reveal-section].m-reveal-section--visible .testimonials-slider {
@@ -4911,6 +4926,13 @@ main > section.client-section {
   .scroll-reveal {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+
+  .section-heading-reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
     transition: none;
   }
 
