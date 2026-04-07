@@ -632,6 +632,12 @@ main > section.about {
     padding-top: env(safe-area-inset-top, 0px);
   }
 
+  /* Мягче стык sticky header → первый экран (без “жёсткой” линии) */
+  .announcement-bar {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
   .announcement-bar__track {
     padding-block: 0.25rem;
     min-height: 1.25rem;
@@ -641,6 +647,7 @@ main > section.about {
     background-color: rgba(7, 7, 10, 0.28);
     backdrop-filter: blur(14px) saturate(1.08);
     -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    border-bottom-color: rgba(255, 255, 255, 0.05);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
@@ -2228,12 +2235,36 @@ body.contact-modal-open {
     align-items: flex-start;
   }
 
+  /* Едва заметный тёмный градиент сверху hero — “склейка” с шапкой */
+  .hero::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: clamp(92px, 18vh, 170px);
+    pointer-events: none;
+    z-index: 5;
+    background: linear-gradient(
+      to bottom,
+      rgba(5, 5, 5, 0.55) 0%,
+      rgba(5, 5, 5, 0.22) 42%,
+      rgba(5, 5, 5, 0) 100%
+    );
+  }
+
   .hero-layout {
     gap: clamp(1.15rem, 3.4vw, 1.6rem);
   }
 
   .hero-visual {
-    max-width: min(14.75rem, 62vw);
+    /* Чуть компактнее фото: цель ~60% экрана под визуал */
+    max-width: min(13.25rem, 56vw);
+    margin-bottom: 0.55rem;
+  }
+
+  .hero-visual__img {
+    max-height: 52dvh;
   }
 
   .hero-content {
