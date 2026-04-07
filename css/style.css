@@ -475,6 +475,9 @@ main > section.about {
   height: 60px;
   object-fit: contain;
   object-position: left center;
+  /* Увеличиваем визуально логотип, не меняя высоту шапки (transform не влияет на flow) */
+  transform: scale(1.12);
+  transform-origin: left center;
   background: none;
   background-color: transparent;
   border: none;
@@ -490,12 +493,17 @@ main > section.about {
 
   .logo__img {
     height: 80px;
+    transform: scale(1.1);
   }
 }
 
 @media (max-width: 768px) {
   .logo {
     max-width: calc(100% - 3.25rem);
+  }
+
+  .logo__img {
+    transform: scale(1.15);
   }
 }
 
