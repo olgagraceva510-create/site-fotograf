@@ -627,8 +627,36 @@ main > section.about {
     padding-right: 20px;
   }
 
+  /* Mobile: компактнее sticky-блок (marquee + header) */
+  .site-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .announcement-bar__track {
+    padding-block: 0.25rem;
+    min-height: 1.25rem;
+  }
+
+  .site-header {
+    background-color: rgba(7, 7, 10, 0.28);
+    backdrop-filter: blur(14px) saturate(1.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .header-inner {
+    padding-top: 0.95rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .logo__img {
+    height: 46px;
+  }
+
   .nav-toggle {
     display: flex;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .main-nav {
@@ -2189,10 +2217,33 @@ body.contact-modal-open {
     text-align: center;
   }
 
+  /* Mobile hero: всё важное на первом экране без скролла */
+  :root {
+    --site-top-mobile: calc(env(safe-area-inset-top, 0px) + 5.75rem);
+  }
+
+  .hero {
+    min-height: calc(100dvh - var(--site-top-mobile));
+    min-height: calc(100vh - var(--site-top-mobile));
+    align-items: flex-start;
+  }
+
+  .hero-layout {
+    gap: clamp(1.15rem, 3.4vw, 1.6rem);
+  }
+
+  .hero-visual {
+    max-width: min(14.75rem, 62vw);
+  }
+
+  .hero-content {
+    margin-top: -0.35rem;
+  }
+
   main > section.hero,
   .hero-content {
-    padding-top: 28px;
-    padding-bottom: 36px;
+    padding-top: 16px;
+    padding-bottom: 20px;
   }
 
   .hero h1 {
@@ -2209,7 +2260,7 @@ body.contact-modal-open {
     flex-direction: column;
     align-items: center;
     gap: 14px;
-    margin-top: 26px;
+    margin-top: 18px;
     width: 100%;
     max-width: min(100%, 26rem);
     margin-left: auto;
