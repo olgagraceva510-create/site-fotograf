@@ -3879,6 +3879,12 @@ body.contact-modal-open {
   user-select: none;
 }
 
+/* Restoration subpage: fill cards without поля */
+#subpage-restoration-title + .gallery .before-after-static__img {
+  object-fit: cover;
+  object-position: center;
+}
+
 .before-after-slider__divider {
   position: absolute;
   inset: 0;
