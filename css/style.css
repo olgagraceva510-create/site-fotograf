@@ -2326,7 +2326,7 @@ body.contact-modal-open {
   }
 
   .hero .hero-location {
-    margin-top: calc(-1 * clamp(0.85rem, 2.2vw, 1.35rem) + 8px);
+    margin-top: calc(-1 * clamp(0.85rem, 2.2vw, 1.35rem) + 12px);
   }
 
   .hero .hero-subtitle__tail {
