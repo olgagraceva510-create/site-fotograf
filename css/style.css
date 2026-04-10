@@ -4346,20 +4346,33 @@ body.contact-modal-open {
   max-width: 36rem;
 }
 
-.site-footer .footer-tagline .hero-kicker__mobile-grid {
-  text-align: center;
-  justify-items: center;
+.footer-byline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.55rem, 2vw, 0.75rem);
 }
 
-@media (max-width: 768px) {
-  /* Вторая строка: левый край совпадает с началом col2 (точка после «Фотограф»);
-     весь блок .hero-kicker__mobile-grid по-прежнему центрируется через max-content + margin auto */
-  .site-footer .footer-tagline .hero-kicker__c3 {
-    display: block;
-    justify-self: start;
-    margin-left: 0;
-    text-align: left;
-  }
+.footer-byline__row {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-align: left;
+  width: max-content;
+  max-width: 100%;
+}
+
+.footer-byline__row--main {
+  font-weight: 500;
+}
+
+.footer-byline__align {
+  visibility: hidden;
+  user-select: none;
+  pointer-events: none;
 }
 
 .footer-self-employed {
