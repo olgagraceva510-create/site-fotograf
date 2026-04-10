@@ -1919,8 +1919,9 @@ body.contact-modal-open {
 }
 
 .hero .hero-location {
-  align-self: stretch;
-  width: 100%;
+  align-self: center;
+  width: max-content;
+  max-width: 100%;
   margin: calc(-1 * clamp(0.85rem, 2.2vw, 1.35rem)) 0 calc(clamp(0.65rem, 1.8vw, 1rem) + 8px);
   padding: 0;
   font-family: var(--font-ui);
@@ -1929,7 +1930,7 @@ body.contact-modal-open {
   line-height: 1.45;
   letter-spacing: 0.02em;
   text-align: center;
-  text-wrap: balance;
+  white-space: nowrap;
   color: rgba(203, 203, 212, 0.95);
 }
 
@@ -2073,9 +2074,7 @@ body.contact-modal-open {
   }
 
   .hero .hero-location {
-    text-align: left;
     margin: -0.85rem 0 calc(0.75rem + 15px);
-    padding-left: 12px;
   }
 
   .hero-name-line--first {
