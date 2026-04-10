@@ -1918,6 +1918,10 @@ body.contact-modal-open {
   text-wrap: unset;
 }
 
+.hero .hero-subtitle__tail {
+  margin-top: 7px;
+}
+
 .hero .hero-location {
   align-self: center;
   width: max-content;
