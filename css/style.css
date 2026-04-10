@@ -2075,6 +2075,7 @@ body.contact-modal-open {
   .hero .hero-location {
     text-align: left;
     margin: -0.85rem 0 calc(0.75rem + 8px);
+    padding-left: 12px;
   }
 
   .hero-name-line--first {
