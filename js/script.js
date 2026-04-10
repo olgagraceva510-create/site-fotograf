@@ -139,6 +139,39 @@
 })();
 
 (function () {
+  function initBeforeAfterMore() {
+    document.querySelectorAll("[data-before-after-more]").forEach(function (btn) {
+      var id = btn.getAttribute("aria-controls");
+      if (!id) return;
+      var target = document.getElementById(id);
+      if (!target) return;
+
+      var moreLabel = btn.textContent || "Смотреть больше →";
+      var lessLabel = btn.getAttribute("data-less-label") || "Свернуть ←";
+
+      function setOpen(open) {
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        target.hidden = !open;
+        btn.textContent = open ? lessLabel : moreLabel;
+      }
+
+      setOpen(false);
+
+      btn.addEventListener("click", function () {
+        var open = btn.getAttribute("aria-expanded") === "true";
+        setOpen(!open);
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initBeforeAfterMore);
+  } else {
+    initBeforeAfterMore();
+  }
+})();
+
+(function () {
   function initAiOrbitScale() {
     var root = document.querySelector("[data-ai-orbit]");
     var viewport = root && root.querySelector(".ai-orbit__viewport");
