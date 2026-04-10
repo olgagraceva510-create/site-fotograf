@@ -1918,6 +1918,21 @@ body.contact-modal-open {
   text-wrap: unset;
 }
 
+.hero .hero-location {
+  align-self: stretch;
+  width: 100%;
+  margin: calc(-1 * clamp(0.85rem, 2.2vw, 1.35rem)) 0 clamp(0.65rem, 1.8vw, 1rem);
+  padding: 0;
+  font-family: var(--font-ui);
+  font-size: clamp(0.8125rem, 0.7rem + 1vw, 0.9375rem);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-wrap: balance;
+  color: rgba(203, 203, 212, 0.95);
+}
+
 /* Мобильная вёрстка подписи: 2 строки, вторая под точкой между «Фотограф» и «Ретушёр» */
 .hero-kicker__mobile-grid {
   display: grid;
@@ -2057,6 +2072,11 @@ body.contact-modal-open {
     margin: 0 0 1.875rem;
   }
 
+  .hero .hero-location {
+    text-align: left;
+    margin: -0.85rem 0 0.75rem;
+  }
+
   .hero-name-line--first {
     font-size: clamp(2.4rem, 3.3vw + 1.35rem, 4.95rem);
     line-height: 1.16;
@@ -2137,6 +2157,7 @@ body.contact-modal-open {
   .hero-visual,
   .hero-name,
   .hero-kicker,
+  .hero .hero-location,
   .hero .hero-subtitle,
   .hero-actions {
     opacity: 0;
@@ -2153,6 +2174,7 @@ body.contact-modal-open {
   }
 
   .hero-kicker,
+  .hero .hero-location,
   .hero .hero-subtitle {
     animation-delay: 0.28s;
   }
@@ -2173,6 +2195,7 @@ body.contact-modal-open {
 @media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
   .hero-visual,
   .hero-kicker,
+  .hero .hero-location,
   .hero .hero-subtitle,
   .hero-actions {
     animation: none;
@@ -2194,6 +2217,7 @@ body.contact-modal-open {
 
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-visual,
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-kicker,
+  section.hero[data-m-reveal-section].m-reveal-section--visible .hero-location,
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-subtitle,
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-actions {
     opacity: 1;
@@ -2214,6 +2238,7 @@ body.contact-modal-open {
   }
 
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-kicker,
+  section.hero[data-m-reveal-section].m-reveal-section--visible .hero-location,
   section.hero[data-m-reveal-section].m-reveal-section--visible .hero-subtitle {
     transition-delay: calc(var(--m-reveal-stagger) * 2.25);
   }
@@ -2317,6 +2342,7 @@ body.contact-modal-open {
   .hero-visual,
   .hero-name,
   .hero-kicker,
+  .hero .hero-location,
   .hero .hero-subtitle,
   .hero-actions {
     animation: none !important;
