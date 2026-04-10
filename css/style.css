@@ -2077,9 +2077,18 @@ body.contact-modal-open {
     margin: 0 0 1.875rem;
   }
 
-  .hero .hero-location {
-    margin: calc(-0.85rem + 8px) 0 calc(0.75rem + 15px);
-    margin-left: -5px;
+  /* Локация: не центрировать блок — выравнивание по левому краю колонки + отступ под «Гр…» в «Грачёва» */
+  .hero .hero-text .hero-location {
+    align-self: stretch !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    margin: calc(-0.85rem + 8px) 0 calc(0.75rem + 15px) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: clamp(0.65rem, 1.65vw, 1.2rem) !important;
+    padding-right: 0 !important;
   }
 
   .hero-name-line--first {
