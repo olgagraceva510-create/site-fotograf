@@ -2075,6 +2075,7 @@ body.contact-modal-open {
 
   .hero .hero-location {
     margin: -0.85rem 0 calc(0.75rem + 15px);
+    margin-left: -8px;
   }
 
   .hero-name-line--first {
@@ -2318,6 +2319,10 @@ body.contact-modal-open {
   .hero h1 {
     margin-bottom: 18px;
     text-align: center;
+  }
+
+  .hero .hero-location {
+    margin-top: calc(-1 * clamp(0.85rem, 2.2vw, 1.35rem) + 8px);
   }
 
   .hero .hero-subtitle__tail {
