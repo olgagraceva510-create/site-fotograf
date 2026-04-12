@@ -1003,3 +1003,59 @@
     initContactModal();
   }
 })();
+
+(function () {
+  function syncFlipPricingA11y(card, flipped) {
+    var front = card.querySelector(".flip-pricing-card__face--front");
+    var back = card.querySelector(".flip-pricing-card__face--back");
+    if (front) front.setAttribute("aria-hidden", flipped ? "true" : "false");
+    if (back) back.setAttribute("aria-hidden", flipped ? "false" : "true");
+    card.setAttribute("aria-expanded", flipped ? "true" : "false");
+    card.setAttribute("aria-pressed", flipped ? "true" : "false");
+  }
+
+  function initFlipPricingCards() {
+    var cards = document.querySelectorAll("[data-flip-pricing-card]");
+    if (!cards.length) return;
+
+    cards.forEach(function (card) {
+      syncFlipPricingA11y(card, false);
+
+      card.addEventListener("click", function () {
+        var next = !card.classList.contains("flip-pricing-card--flipped");
+        card.classList.toggle("flip-pricing-card--flipped", next);
+        syncFlipPricingA11y(card, next);
+      });
+
+      card.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        e.preventDefault();
+        var next = !card.classList.contains("flip-pricing-card--flipped");
+        card.classList.toggle("flip-pricing-card--flipped", next);
+        syncFlipPricingA11y(card, next);
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFlipPricingCards);
+  } else {
+    initFlipPricingCards();
+  }
+})();
+
+(function () {
+  function initFlipCardClick() {
+    document.querySelectorAll(".flip-card").forEach(function (card) {
+      card.addEventListener("click", function () {
+        card.classList.toggle("active");
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFlipCardClick);
+  } else {
+    initFlipCardClick();
+  }
+})();
