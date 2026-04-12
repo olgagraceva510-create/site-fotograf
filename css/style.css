@@ -5297,8 +5297,34 @@ main > section.client-section {
 }
 
 .flip-card {
+  position: relative;
   perspective: 1000px;
   cursor: pointer;
+}
+
+.flip-card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 70%;
+  height: 30px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.flip-card:hover::after {
+  opacity: 1;
 }
 
 .flip-card-inner {
@@ -5340,12 +5366,10 @@ main > section.client-section {
 
 .flip-card:hover .flip-card-front,
 .flip-card:hover .flip-card-back {
-  background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.18);
   box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 0 24px rgba(255, 255, 255, 0.1);
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(255, 255, 255, 0.08);
 }
 
 .flip-card:hover {
@@ -5373,6 +5397,31 @@ main > section.client-section {
 }
 
 /* Hover-подсветка flip-карточек прайса (flip-pricing + price-section) */
+.flip-pricing-card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 70%;
+  height: 30px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.flip-pricing-card:hover::after {
+  opacity: 1;
+}
+
 .flip-pricing-card,
 .flip-pricing-card__face,
 .flip-card,
@@ -5385,22 +5434,18 @@ main > section.client-section {
 .flip-card:hover .flip-card-back,
 .flip-card.active .flip-card-front,
 .flip-card.active .flip-card-back {
-  border-color: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.18);
   box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 0 24px rgba(255, 255, 255, 0.1) !important;
-  background: rgba(255, 255, 255, 0.05) !important;
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(255, 255, 255, 0.08);
 }
 
 .flip-pricing-card:hover .flip-pricing-card__face,
 .flip-pricing-card.flip-pricing-card--flipped .flip-pricing-card__face {
-  border-color: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.18);
   box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 0 24px rgba(255, 255, 255, 0.1) !important;
-  background: rgba(255, 255, 255, 0.05) !important;
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(255, 255, 255, 0.08);
 }
 
 .flip-card:hover {
