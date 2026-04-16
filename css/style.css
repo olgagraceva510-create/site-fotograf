@@ -1614,6 +1614,15 @@ button.button--hero-secondary {
     0 0 80px rgba(238, 238, 248, 0.14);
 }
 
+.contact-modal__trust {
+  margin-top: 12px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.62);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .contact-modal {
     transition: none;
