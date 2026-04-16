@@ -900,6 +900,26 @@
 
     if (form) {
       var submitBtn = form.querySelector('button[type="submit"]');
+      var requiredCbs = Array.prototype.slice.call(
+        form.querySelectorAll('input[type="checkbox"][required]')
+      );
+
+      function syncSubmitEnabled() {
+        if (!submitBtn) return;
+        if (!requiredCbs.length) {
+          submitBtn.disabled = false;
+          return;
+        }
+        submitBtn.disabled = requiredCbs.some(function (cb) {
+          return !cb.checked;
+        });
+      }
+
+      requiredCbs.forEach(function (cb) {
+        cb.addEventListener("change", syncSubmitEnabled);
+      });
+
+      syncSubmitEnabled();
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -954,6 +974,7 @@
             if (data && data.success === true) {
               form.reset();
               syncFloatingLabels();
+              syncSubmitEnabled();
               showSuccessState();
             } else {
               var errMsg =
@@ -966,7 +987,7 @@
             showFeedback("Ошибка сети. Проверьте подключение и попробуйте снова.", "error");
           })
           .finally(function () {
-            if (submitBtn) submitBtn.disabled = false;
+            syncSubmitEnabled();
           });
       });
     }
