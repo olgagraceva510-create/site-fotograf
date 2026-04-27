@@ -151,15 +151,19 @@ body {
     background-color: #000;
   }
 
+  /*
+   * Полоса под вырез: на html::before (а не body) — у body overflow-x: clip может обрезать fixed-псевдо в Safari.
+   * Небольшой запас по высоте под Dynamic Island / композитинг iOS.
+   */
   @supports (padding-top: env(safe-area-inset-top)) {
-    body::before {
+    html::before {
       content: "";
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      /* +1px: субпиксельный зазор у выреза/Dynamic Island в Safari (в т.ч. iPhone 15 Pro Max) */
-      height: calc(env(safe-area-inset-top, 0px) + 1px);
+      width: 100%;
+      height: calc(env(safe-area-inset-top, 0px) + 8px);
       background: #000;
       z-index: 99999;
       pointer-events: none;
@@ -234,11 +238,16 @@ body {
 }
 
 @media (max-width: 768px) {
+  /*
+   * Не уводить фон вверх на -8vh: на iPhone слой оказывается под системной зоной и просвечивает
+   * сквозь Safari поверх бегущей строки / safe-area.
+   */
   .site-bg-parallax {
-    top: -8vh;
-    height: 118vh;
-    height: 118dvh;
-    min-height: 0;
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   main {
