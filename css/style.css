@@ -158,10 +158,13 @@ body {
       top: 0;
       left: 0;
       right: 0;
-      height: env(safe-area-inset-top);
+      /* +1px: субпиксельный зазор у выреза/Dynamic Island в Safari (в т.ч. iPhone 15 Pro Max) */
+      height: calc(env(safe-area-inset-top, 0px) + 1px);
       background: #000;
       z-index: 99999;
       pointer-events: none;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
   }
 }
