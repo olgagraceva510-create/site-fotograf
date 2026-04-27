@@ -1989,6 +1989,11 @@ body.contact-modal-open {
   box-sizing: border-box;
 }
 
+.hero-actions > :nth-child(3) {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
 .hero .hero-actions a,
 .hero .hero-actions button {
   width: 220px;
