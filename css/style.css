@@ -135,6 +135,29 @@ body {
   }
 }
 
+/* Мобильный верх экрана: чёрный фон и полоса под safe-area, без просвета над бегущей строкой */
+@media (max-width: 768px) {
+  html,
+  body {
+    background: #000;
+    background-color: #000;
+  }
+
+  @supports (padding-top: env(safe-area-inset-top)) {
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: env(safe-area-inset-top);
+      background: #000;
+      z-index: 99999;
+      pointer-events: none;
+    }
+  }
+}
+
 /* Живой тёмный фон: глубокий чёрный / графит, очень медленный дрейф (десктоп + мобильный) */
 .site-bg-parallax {
   display: block;
