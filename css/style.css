@@ -143,6 +143,14 @@ body {
     background-color: #000;
   }
 
+  /*
+   * Просвет над бегущей строкой: padding-top у .site-top под safe-area без своего фона —
+   * сквозь него виден hero/параллакс. Непрозрачный фон обёртки (не .announcement-bar) закрывает зазор.
+   */
+  .site-top {
+    background-color: #000;
+  }
+
   @supports (padding-top: env(safe-area-inset-top)) {
     body::before {
       content: "";
