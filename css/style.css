@@ -323,6 +323,11 @@ main > section.about {
   padding-bottom: var(--section-padding-y);
 }
 
+/* Заголовки секций на тёмном фоне: лёгкое свечение без смены цвета и кегля */
+main > section h2 {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
 /* =============================================================================
    Верх сайта: полоса объявления + шапка (один sticky-блок)
    ============================================================================= */
@@ -657,9 +662,10 @@ main > section.about {
   }
 
   .site-header {
-    background-color: rgba(7, 7, 10, 0.28);
-    backdrop-filter: blur(14px) saturate(1.08);
-    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    background: #000;
+    background-color: #000;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border-bottom-color: rgba(255, 255, 255, 0.05);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
@@ -3138,7 +3144,7 @@ body.contact-modal-open {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--glass-shadow);
   aspect-ratio: 3 / 4;
 }
@@ -3181,17 +3187,38 @@ body.contact-modal-open {
     filter var(--photo-hover-duration) var(--photo-glow-ease);
 }
 
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .portfolio-item:not(.scroll-reveal-child):hover img,
-  .portfolio-item.scroll-reveal-child.scroll-reveal-child--visible:hover img {
-    transform: scale(1.025);
+/* Портфолио (только сетка .portfolio-grid): премиальный hover на desktop */
+.portfolio-grid > .portfolio-item {
+  transition: box-shadow 0.4s ease;
+}
+
+.portfolio-grid > .portfolio-item img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.portfolio-grid > .portfolio-item::after {
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease,
+    filter 0.4s ease;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 769px) and (prefers-reduced-motion: no-preference) {
+  .portfolio-grid > .portfolio-item:not(.scroll-reveal-child):hover img,
+  .portfolio-grid > .portfolio-item.scroll-reveal-child.scroll-reveal-child--visible:hover img {
+    transform: scale(1.02);
   }
 
-  .portfolio-item:not(.scroll-reveal-child):hover::after,
-  .portfolio-item.scroll-reveal-child.scroll-reveal-child--visible:hover::after {
+  .portfolio-grid > .portfolio-item:not(.scroll-reveal-child):hover::after,
+  .portfolio-grid > .portfolio-item.scroll-reveal-child.scroll-reveal-child--visible:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0.2rem) scale(1.14, 1.02);
     filter: blur(34px);
+  }
+
+  .portfolio-grid > .portfolio-item:not(.scroll-reveal-child):hover,
+  .portfolio-grid > .portfolio-item.scroll-reveal-child.scroll-reveal-child--visible:hover {
+    box-shadow: var(--glass-shadow), 0 15px 40px rgba(255, 255, 255, 0.12);
   }
 }
 
@@ -3270,7 +3297,7 @@ body.contact-modal-open {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--glass-shadow);
   aspect-ratio: var(--media-aspect-portrait);
   display: block;
@@ -3360,6 +3387,10 @@ body.contact-modal-open {
   .about-photo img {
     transition: none;
     transform: none !important;
+  }
+
+  .portfolio-grid > .portfolio-item {
+    transition: none;
   }
 
   .portfolio-item::after,
@@ -3821,7 +3852,7 @@ body.contact-modal-open {
   background: rgba(8, 8, 10, 0.42);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--glass-shadow);
   user-select: none;
   touch-action: none;
@@ -3972,7 +4003,7 @@ body.contact-modal-open {
   background: rgba(8, 8, 10, 0.42);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--glass-shadow);
 }
 
@@ -4517,6 +4548,7 @@ body.contact-modal-open {
   text-align: center;
   text-wrap: balance;
   margin: 0 0 0.65rem;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
 }
 
 .subpage-gallery__intro {
@@ -5492,4 +5524,51 @@ main > section.client-section {
 
 .flip-pricing-card:hover {
   transform: translateY(-4px);
+}
+
+.floating-call {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
+  z-index: 9999;
+  transition: 0.25s ease;
+}
+
+.floating-call:hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+.floating-call svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+}
+
+@media (max-width: 768px) {
+  .floating-call {
+    right: 16px;
+    bottom: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .floating-call svg {
+    width: 20px;
+    height: 20px;
+  }
 }
