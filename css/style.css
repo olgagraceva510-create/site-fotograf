@@ -149,26 +149,38 @@ body {
    */
   .site-top {
     background-color: #000;
+    background-image: linear-gradient(#000, #000);
+    isolation: isolate;
   }
 
   /*
-   * Полоса под вырез: на html::before (а не body) — у body overflow-x: clip может обрезать fixed-псевдо в Safari.
-   * Небольшой запас по высоте под Dynamic Island / композитинг iOS.
+   * Жёсткая чёрная полоса под Dynamic Island / статус-бар (Safari iOS).
+   * Без @supports: env() даёт 0 там, где inset не применился — max() даёт минимальную высоту.
+   * max() высота только чуть больше safe-area — бегущую строку не перекрывает.
    */
-  @supports (padding-top: env(safe-area-inset-top)) {
-    html::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: calc(env(safe-area-inset-top, 0px) + 8px);
-      background: #000;
-      z-index: 99999;
-      pointer-events: none;
-      transform: translateZ(0);
-      -webkit-transform: translateZ(0);
+  html::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: max(3.75rem, calc(env(safe-area-inset-top, 0px) + 12px));
+    background: #000;
+    z-index: 99999;
+    pointer-events: none;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  /* iOS WebKit: overflow-x: clip на предке обрезает fixed-псевдо — только на мобилке ослабляем */
+  @supports (-webkit-touch-callout: none) {
+    html {
+      overflow-x: visible;
+    }
+
+    body {
+      overflow-x: visible;
     }
   }
 }
@@ -691,6 +703,9 @@ main > section h2 {
   /* Mobile: компактнее sticky-блок (marquee + header) */
   .site-top {
     padding-top: env(safe-area-inset-top, 0px);
+    background-color: #000;
+    background-image: linear-gradient(#000, #000);
+    isolation: isolate;
   }
 
   /* Мягче стык sticky header → первый экран (без “жёсткой” линии) */
