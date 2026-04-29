@@ -1901,6 +1901,22 @@ body.contact-modal-open {
   color: var(--hero-text);
 }
 
+/* Очень слабая виньетка по краям hero (почти незаметно) */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 110% 95% at 50% 45%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 56%,
+    rgba(0, 0, 0, 0.18) 100%
+  );
+  opacity: 0.22;
+}
+
 .hero .container {
   position: relative;
   z-index: 1;
@@ -1940,26 +1956,26 @@ body.contact-modal-open {
   transform: translate(-50%, -50%);
   pointer-events: none;
   background: radial-gradient(
-    ellipse 78% 86% at 46% 44%,
-    rgba(245, 245, 250, 0.085) 0%,
-    rgba(210, 212, 224, 0.03) 44%,
-    transparent 74%
+    ellipse 82% 90% at 48% 46%,
+    rgba(245, 245, 250, 0.14) 0%,
+    rgba(210, 212, 224, 0.045) 42%,
+    transparent 76%
   );
-  filter: blur(46px);
-  opacity: 0.48;
+  filter: blur(40px);
+  opacity: 0.15;
   animation: hero-halo-breathe var(--hero-halo-pulse) ease-in-out infinite;
 }
 
 @keyframes hero-halo-breathe {
   0%,
   100% {
-    opacity: 0.58;
+    opacity: 0.12;
     transform: translate(-50%, -50%) scale(1);
     filter: blur(40px);
   }
 
   50% {
-    opacity: 0.78;
+    opacity: 0.17;
     transform: translate(-50%, -50%) scale(1.035);
     filter: blur(44px);
   }
@@ -1968,7 +1984,7 @@ body.contact-modal-open {
 @media (prefers-reduced-motion: reduce) {
   .hero-visual::before {
     animation: none;
-    opacity: 0.68;
+    opacity: 0.15;
     transform: translate(-50%, -50%) scale(1);
     filter: blur(40px);
   }
@@ -2071,6 +2087,98 @@ body.contact-modal-open {
   min-width: 0;
 }
 
+/* Тонкие линии-якоря (mobile: короче и по центру; desktop-оверрайд ниже) */
+.hero-text::before {
+  content: "";
+  display: block;
+  width: clamp(260px, 62vw, 360px);
+  height: 1px;
+  opacity: 0.2;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  margin: 0 auto clamp(0.95rem, 3.2vh, 1.25rem);
+}
+
+.hero-name::after {
+  content: "";
+  display: block;
+  width: clamp(260px, 58vw, 360px);
+  height: 1px;
+  opacity: 0.18;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  margin: clamp(0.9rem, 3vh, 1.15rem) auto 0;
+}
+
+/* Desktop: композиция текста — шире, левее, больше воздуха + 2 тонкие линии-якоря */
+@media (min-width: 1024px) {
+  .hero-text {
+    max-width: min(720px, 100%);
+    padding-inline: 0;
+    align-items: flex-start;
+    text-align: left;
+    /* немного ближе к портрету, но без захода на лицо */
+    margin-left: clamp(30px, 2.2vw, 40px);
+  }
+
+  .hero-text::before {
+    width: clamp(420px, 40vw, 520px);
+    opacity: 0.22;
+    margin: 0 0 clamp(1.1rem, 2.2vh, 1.6rem);
+  }
+
+  .hero-name::after {
+    width: clamp(420px, 38vw, 520px);
+    opacity: 0.2;
+    margin: clamp(1.05rem, 2vh, 1.55rem) 0 0;
+  }
+
+  .hero-name {
+    margin-bottom: clamp(1.6rem, 3.1vh, 2.15rem);
+  }
+
+  .hero .hero-location {
+    align-self: flex-start;
+    width: auto;
+    margin: 0 0 clamp(1.35rem, 2.8vh, 1.9rem);
+    text-align: left;
+    white-space: normal;
+  }
+
+  .hero-location__line--role {
+    letter-spacing: 0.06em;
+  }
+
+  .hero-location__line--place {
+    margin-top: 0.2rem;
+    letter-spacing: 0.03em;
+    color: rgba(189, 189, 198, 0.92);
+  }
+
+  .hero .hero-subtitle {
+    text-align: left;
+    margin: 0 0 clamp(3.35rem, 6vh, 4.35rem);
+  }
+
+  .hero-actions {
+    max-width: min(720px, 100%);
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: flex-start;
+  }
+
+  .hero-actions > :nth-child(3) {
+    justify-self: center;
+  }
+
+  .hero .hero-actions a,
+  .hero .hero-actions button {
+    width: 100%;
+  }
+
+  .hero-actions > :nth-child(3) {
+    width: min(320px, 100%);
+  }
+}
+
 .hero-name {
   max-width: 100%;
   margin: 0 0 clamp(1.75rem, 4.5vw, 2.75rem);
@@ -2119,9 +2227,10 @@ body.contact-modal-open {
   font-style: normal;
   font-weight: 400;
   margin-top: clamp(0.2rem, 0.55vw, 0.5rem);
-  font-size: clamp(3.15rem, 11.5vw + 1.35rem, 6.75rem);
+  /* Фамилия заметно сильнее имени (≈ +10–20%) */
+  font-size: clamp(3.45rem, 12.7vw + 1.5rem, 7.6rem);
   line-height: 1.02;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.03em;
 }
 
 /* Анимированный градиент имени (аналог @react-bits/GradientText, без React) */
@@ -2206,6 +2315,14 @@ body.contact-modal-open {
   text-wrap: unset;
 }
 
+.hero .hero-subtitle {
+  /* Роли в hero: легче, воздушнее, без uppercase */
+  text-transform: none;
+  letter-spacing: 0.08em;
+  font-size: clamp(0.6875rem, 0.57rem + 1.05vw, 0.8rem);
+  color: rgba(198, 198, 210, 0.82);
+}
+
 .hero .hero-subtitle__tail {
   margin-top: 7px;
 }
@@ -2222,8 +2339,12 @@ body.contact-modal-open {
   line-height: 1.45;
   letter-spacing: 0.02em;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
   color: rgba(203, 203, 212, 0.95);
+}
+
+.hero-location__line {
+  display: block;
 }
 
 /* Мобильная вёрстка подписи: 2 строки, вторая под точкой между «Фотограф» и «Ретушёр» */
@@ -2633,6 +2754,15 @@ body.contact-modal-open {
 
   .hero .hero-subtitle__tail {
     display: block;
+  }
+
+  /* Mobile: симметричные точки-разделители в 2 строки */
+  .hero .hero-subtitle__lead::before {
+    content: "· ";
+  }
+
+  .hero .hero-subtitle__tail::after {
+    content: " ·";
   }
 
   .hero .hero-actions {
