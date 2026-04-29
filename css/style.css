@@ -726,7 +726,7 @@ header {
   color: var(--color-text-muted);
   position: relative;
   padding: 0.35rem 0;
-  cursor: default;
+  cursor: pointer;
   transition:
     color var(--hover-ui-duration) var(--hover-ui-ease),
     text-shadow var(--hover-ui-duration) var(--hover-ui-ease);
