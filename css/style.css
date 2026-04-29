@@ -708,6 +708,106 @@ header {
   box-shadow: 0 0 16px rgba(255, 255, 255, 0.55);
 }
 
+/* Desktop: пункт «Ещё» + выпадающее меню (glassmorphism) */
+.main-nav__item--more {
+  position: relative;
+}
+
+.main-nav__more-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: var(--font-size-caption);
+  font-weight: 600;
+  letter-spacing: var(--letter-ui);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  position: relative;
+  padding: 0.35rem 0;
+  cursor: default;
+  transition:
+    color var(--hover-ui-duration) var(--hover-ui-ease),
+    text-shadow var(--hover-ui-duration) var(--hover-ui-ease);
+}
+
+.main-nav__more-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition:
+    transform var(--hover-ui-duration) var(--hover-ui-ease),
+    box-shadow var(--hover-ui-duration) var(--hover-ui-ease);
+}
+
+.main-nav__item--more:hover .main-nav__more-btn,
+.main-nav__item--more:focus-within .main-nav__more-btn {
+  color: #ffffff;
+  text-shadow: 0 0 22px rgba(255, 255, 255, 0.42);
+}
+
+.main-nav__item--more:hover .main-nav__more-btn::after,
+.main-nav__item--more:focus-within .main-nav__more-btn::after {
+  transform: scaleX(1);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.55);
+}
+
+.main-nav__dropdown {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  right: -0.2rem;
+  z-index: 220;
+  min-width: 14.25rem;
+  padding: 0.55rem;
+  margin: 0;
+  list-style: none;
+  border-radius: 0.95rem;
+  background-color: rgba(7, 7, 10, 0.62);
+  border: 1px solid var(--glass-border-soft);
+  backdrop-filter: blur(18px) saturate(1.18);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.6), 0 6px 18px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transform: translate3d(0, -6px, 0);
+  pointer-events: none;
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.main-nav__dropdown li {
+  border: none;
+}
+
+.main-nav__dropdown a {
+  display: block;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.65rem;
+}
+
+.main-nav__dropdown a::after {
+  display: none;
+}
+
+.main-nav__dropdown a:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.main-nav__item--more:hover > .main-nav__dropdown,
+.main-nav__item--more:focus-within > .main-nav__dropdown {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+
 @media (max-width: 768px) {
   header {
     padding-left: 20px;
@@ -810,6 +910,48 @@ header {
 
   .main-nav a::after {
     display: none;
+  }
+
+  /* Mobile: пункты из «Ещё» должны остаться в списке (burger-menu), без dropdown-оформления */
+  .main-nav__item--more {
+    position: static;
+  }
+
+  .main-nav__more-btn {
+    display: none;
+  }
+
+  .main-nav__dropdown {
+    position: static;
+    top: auto;
+    right: auto;
+    z-index: auto;
+    min-width: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition: none;
+  }
+
+  .main-nav__dropdown li {
+    border-top: 1px solid var(--glass-border-soft);
+  }
+
+  .main-nav__dropdown a {
+    padding: 0.9rem 0;
+    font-size: 0.8rem;
+    border-radius: 0;
+  }
+
+  .main-nav__dropdown a:hover {
+    background: transparent;
   }
 }
 
@@ -4907,7 +5049,7 @@ main > section.client-section {
 }
 
 /* Подпись hero на мобильной: блок по центру экрана, внутри — выравнивание по колонкам,
-   чтобы «ИИ-креатор» начинался под точкой после «Фотограф» (левый край 2-й колонки) */
+   чтобы «AI‑креатор» начинался под точкой после «Фотограф» (левый край 2-й колонки) */
 @media (max-width: 1023px) {
   .hero-kicker__mobile-grid {
     text-align: left;
