@@ -4250,6 +4250,20 @@ body.contact-modal-open {
   }
 }
 
+@media (min-width: 1024px) {
+  /* Когда в гриде остаётся одна карточка:
+   * - растягиваем на 2 колонки, чтобы убрать пустое место справа
+   * - сохраняем исходную ширину карточки (как у одной колонки в 2-колоночном гриде)
+   * - ставим по центру
+   */
+  #до-после .before-after-grid > .before-after-item:only-child,
+  #реставрация .before-after-grid > .before-after-item:only-child {
+    grid-column: 1 / -1;
+    width: calc((100% - clamp(1.75rem, 3.5vw, 2.75rem)) / 2);
+    justify-self: center;
+  }
+}
+
 .before-after-item {
   position: relative;
   z-index: 0;
